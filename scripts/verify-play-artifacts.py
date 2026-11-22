@@ -9,7 +9,7 @@ out = Path(sys.argv[1])
 pack = json.loads(Path('offline-pack.json').read_text())
 paths = [unquote(url.lstrip('/')) + ('index.html' if url.endswith('/') else '')
          for url in pack['files']]
-paths.extend(str(path) for path in sorted(Path('print').glob('*/*.pdf')))
+paths = sorted(set(paths).union(str(path) for path in Path('print').rglob('*.pdf')))
 for artifact, prefix in [('apk', ''), ('aab', 'base/')]:
     matches = sorted(out.glob('Kawkab-Fudool-*.' + artifact))
     assert len(matches) == 1, matches

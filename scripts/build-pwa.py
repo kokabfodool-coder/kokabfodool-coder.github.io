@@ -120,7 +120,9 @@ for worksheet in json.loads((assets / 'worksheets.json').read_text())['worksheet
         url = worksheet.get(key)
         if url:
             files[urllib.parse.quote(url, safe='/')] = root / urllib.parse.unquote(url.lstrip('/'))
-# Offline home pages fall back to the full covers already in the pack.
+# Keep responsive covers available for the home pages in WebView and in the PWA.
+for thumbnail, _ in existing_sources.values():
+    files['/' + thumbnail.as_posix()] = thumbnail
 # All original audio variants are retained, including old references that may still occur.
 for p in assets.rglob('*'):
     if thumb_folder in p.parents:
