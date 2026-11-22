@@ -18,7 +18,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
    const visible=async v=>{await page.locator('[data-v5-view="'+v+'"]').waitFor({state:'visible',timeout:8000});};
    const fit=async()=>assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'horizontal overflow '+lang+' '+width);
    await visible('home');await fit();
-   assert.equal(await page.locator('.v5-cast-grid .v5-mascot-art').count(),3);
+   assert.equal(await page.locator('.v5-cast-grid .v5-mascot-art').count(),4);
    assert.equal(await page.locator('.v5-featured-scene .world-cover-scene').count(),3);
    assert.equal(await page.locator('.v5-nav use[href*="fudool-premium-art.svg"]').count(),5);
    assert((await page.locator('.v5-nav a[aria-current="page"]').count())===1);
