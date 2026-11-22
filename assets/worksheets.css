@@ -38,6 +38,8 @@
   background: #fff;
   color: var(--ink);
   font-weight: 800;
+  direction: ltr;
+  unicode-bidi: isolate;
   transition: background .15s, color .15s, border-color .15s;
 }
 .ws-toolbar button:hover { border-color: #b9a8ef; }
