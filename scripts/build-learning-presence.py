@@ -513,6 +513,8 @@ def public_sitemap(urls):
         section = path.removeprefix('/en') if lang == 'en' else path
         url = ET.SubElement(root, '{' + XML_NS + '}url')
         ET.SubElement(url, '{' + XML_NS + '}loc').text = canonical
+        if section.strip('/') == 'stories' or section.strip('/').startswith('stories/'):
+            continue
         for code in ('ar', 'en', 'x-default'):
             loc = SITE + to_route('en' if code == 'en' else 'ar', section)
             ET.SubElement(url, '{' + LANG_NS + '}link', {'rel': 'alternate', 'hreflang': code, 'href': loc})
