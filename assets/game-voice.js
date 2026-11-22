@@ -1,6 +1,6 @@
 import {audioPreferences, listenToAudioPreferences} from './audio-settings.js?v=1';
 import {setInstructionPlaying, watchInstructionAudio} from './game-audio.js?v=7';
-import {sharedAudioSource} from './vowel-audio-routing.js?v=2';
+import {sharedAudioSource} from './vowel-audio-routing.js?v=3';
 
 let voiceToken = 0;
 let toneContext;

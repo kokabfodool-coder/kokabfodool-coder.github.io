@@ -50,6 +50,29 @@ export async function mountParentBackup(root, playerLabel) {
     'USER_NOT_FOUND', 'PROJECT_NUMBER_MISMATCH']);
   let session;
   let busy = false;
+  const backupInfo = account.querySelector('[data-backup-info]');
+
+  function rememberBackup(number, updated) {
+    const key = storageKey + ':backup:' + session.uid + ':' + activeProfile().id;
+    localStorage.setItem(key, JSON.stringify({number, updated}));
+  }
+
+  function showBackupInfo() {
+    if (!session?.verified || !backupInfo) return;
+    const key = storageKey + ':backup:' + session.uid + ':' + activeProfile().id;
+    let saved;
+    try { saved = JSON.parse(localStorage.getItem(key)); } catch {}
+    if (saved && [...slot.options].some(option => option.value === saved.number)) {
+      slot.value = saved.number;
+    } else {
+      slot.selectedIndex = 0;
+    }
+    const date = new Date(saved?.updated);
+    backupInfo.textContent = Number.isFinite(date.getTime())
+      ? tr('آخر نسخة تم التحقق منها', 'Last verified backup') + ' · ' +
+        new Intl.DateTimeFormat(ar ? 'ar-AE-u-nu-latn' : 'en', {dateStyle:'medium', timeStyle:'short'}).format(date)
+      : tr('لم تُتحقق نسخة لهذا اللاعب على هذا الجهاز بعد.', 'No backup verified for this player on this device yet.');
+  }
 
   function auth(action, data) {
     return request(authBase + action + apiKey, {method: 'POST', data});
@@ -142,13 +165,13 @@ export async function mountParentBackup(root, playerLabel) {
     for (let attempt = 0; attempt < 3; attempt++) {
       const remote = await readSlot(number);
       const combined = mergeLevels(remote.levels, levels);
-      if (combined === remote.levels) return;
+      if (combined === remote.levels) return remote.updated;
       const currentDocument = remote.updated ? {updateTime: remote.updated} : {exists: false};
       const update = {name: documentName(number),
         fields: {version: {integerValue: String(backupVersion)}, levels: {stringValue: combined}}};
       try {
-        await commit([{update, currentDocument}]);
-        return;
+        const result = await commit([{update, currentDocument}]);
+        return result.writeResults?.[0]?.updateTime || result.commitTime;
       } catch (error) {
         if (attempt === 2 || !([409, 412].includes(error.status) || error.code === 'FAILED_PRECONDITION' ||
                                     error.code === 'ALREADY_EXISTS')) throw error;
@@ -159,7 +182,9 @@ export async function mountParentBackup(root, playerLabel) {
   function showAccount() {
     authForm.hidden = !!session;
     pending.hidden = !session || session.verified === true;
+    const wasHidden = account.hidden;
     account.hidden = !session || session.verified !== true;
+    if (wasHidden && !account.hidden) showBackupInfo();
     if (session) reset.hidden = true;
     pending.querySelector('[data-parent-pending-email]').textContent = session?.email ?? '';
     account.querySelector('[data-parent-email]').textContent = session?.email ?? '';
@@ -248,19 +273,25 @@ export async function mountParentBackup(root, playerLabel) {
       return;
     }
     await accessToken();
-    await saveSlot(slot.value, levels);
+    const number = slot.value;
+    const updated = await saveSlot(number, levels);
+    rememberBackup(number, updated);
+    showBackupInfo();
     status.textContent = tr('تم تحديث نسخة اللاعب في الخانة المختارة.', 'Backup updated in the selected slot.');
   }));
   account.querySelector('[data-parent-restore]').addEventListener('click', () => run(async () => {
     const playerId = activeProfile().id;
     await accessToken();
-    const {levels} = await readSlot(slot.value);
+    const number = slot.value;
+    const {levels, updated} = await readSlot(number);
     if (playerId !== activeProfile().id) throw Error('player changed');
     if (!levels) {
       status.textContent = tr('هذه الخانة فارغة.', 'This backup slot is empty.');
       return;
     }
     const count = restoreLevels(levels, playerId);
+    rememberBackup(number, updated);
+    showBackupInfo();
     status.textContent = count ? tr(count === 1 ? 'استُعيد تقدّم مستوى واحد.' : `استُعيد تقدّم ${count} مستوى.`,
         `Progress restored for ${count} ${count === 1 ? 'level' : 'levels'}.`)
       : tr('التقدّم على الجهاز يطابق النسخة أو يتجاوزها.', 'Progress on this device already meets or exceeds this backup.');

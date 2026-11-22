@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-package=com.kokabfodool.offline
+package=kokab.fodool
+website_package=com.kokabfodool.offline
 activity="$package/com.kokabfodool.shell.MainActivity"
 version=$(sed -nE "s/.*versionName '([^']+)'.*/\1/p" android-app/build.gradle)
 code=$(sed -nE "s/.*versionCode ([0-9]+).*/\1/p" android-app/build.gradle)
@@ -9,11 +10,25 @@ test -n "$version" && test -n "$code"
 apk="build/play/Kawkab-Fudool-$version.apk"
 mkdir -p build/play-device
 
+capture_failure() {
+  local result=$?
+  if (( result != 0 )); then
+    adb devices -l > build/play-device/android-devices.txt || true
+    timeout 8 adb exec-out screencap -p > build/play-device/android-failure.png || true
+    timeout 8 adb exec-out cat /sdcard/fudool-ui.xml > build/play-device/android-failure.xml || true
+    timeout 8 adb logcat -d -t 1500 chromium:V AndroidRuntime:E '*:S' > build/play-device/android-failure-logcat.txt || true
+  fi
+  exit "$result"
+}
+trap capture_failure EXIT
+
 adb shell wm size 390x844
 adb shell wm density 160
 adb shell input keyevent 82
 adb install downloads/apps/Kokab-Fodool-V6.7.1.apk
-adb install -r "$apk"
+adb install -r "build/play/website/Kawkab-Fudool-$version.apk"
+adb shell dumpsys package "$website_package" | grep -F "versionCode=$code"
+adb install "$apk"
 adb shell dumpsys package "$package" | grep -F "versionCode=$code"
 adb shell dumpsys package "$package" | grep -F "versionName=$version"
 adb shell cmd connectivity airplane-mode enable
@@ -33,16 +48,27 @@ import unicodedata
 import xml.etree.ElementTree as ET
 
 label, tap, node_class = sys.argv[1:]
+print('Looking for Android UI:', label, flush=True)
 def normalize(text):
     return ''.join(c for c in unicodedata.normalize('NFKD', text)
                    if not unicodedata.combining(c) and unicodedata.category(c) != 'Cf').strip()
 
 needle = normalize(label)
-story_cover = label in ('فضّول وسرّ الحديقة', 'رحلة إلى مدينة الطاقة النظيفة')
-story_reader = story_cover or label in ('صفحات فضول', 'التالي', 'كل القصص', 'تكبير الصورة', 'إغلاق')
+accepted_labels = [needle]
+if node_class == 'android.widget.EditText' and label == 'اسم اللاعب':
+    accepted_labels.append(normalize('مثل النجم الصغير'))
+navigation = label in ('الألعاب', 'المزيد', 'الحكايات', 'الرئيسية')
+size = subprocess.check_output(['adb','shell','wm','size'], text=True)
+width, height = map(int, re.findall(r'(\d+)x(\d+)', size)[-1])
+midpoint = str(width // 2)
+story_cover = label in ('سامي وظِلّه الصغير', 'ريم وأثر الكتاب الضائع')
 visible = []
+title_only_dumps = 0
 for attempt in range(15):
-    dump = subprocess.run(['adb','shell','uiautomator','dump','/sdcard/fudool-ui.xml'], capture_output=True)
+    dump = subprocess.run(['adb','shell','uiautomator','dump','/sdcard/fudool-ui.xml'], capture_output=True, timeout=25)
+    if dump.returncode != 0:
+        print(dump.stderr.decode(errors='replace').strip(), flush=True)
+        subprocess.run(['adb','shell','true'], check=True, timeout=8)
     if dump.returncode == 0:
         xml = subprocess.check_output(['adb','exec-out','cat','/sdcard/fudool-ui.xml'])
         if xml.startswith(b'<?xml'):
@@ -54,14 +80,12 @@ for attempt in range(15):
                 x1,y1,x2,y2 = map(int,re.findall(r'\d+',node.get('bounds','')))
                 if x2 <= x1 or y2 <= y1:
                     continue
-                captions = [normalize(node.get(key, '')) for key in ('text', 'content-desc')]
+                captions = [normalize(node.get(key, '')) for key in ('text', 'content-desc', 'hint')]
                 visible.extend(text for text in captions if text)
-                exact = needle in captions
-                if node_class:
-                    if node.get('class') != node_class or node.get('enabled') != 'true':
-                        continue
-                    exact = True
-                elif not any(needle in text for text in captions):
+                if node_class and (node.get('class') != node_class or node.get('enabled') != 'true'):
+                    continue
+                exact = any(text in accepted_labels for text in captions)
+                if not any(term in text for term in accepted_labels for text in captions):
                     continue
                 clickable = node.get('clickable') == 'true'
                 if tap == 'yes' and not (exact or clickable):
@@ -69,7 +93,7 @@ for attempt in range(15):
                 center_y = (y1+y2)//2
                 if story_cover and clickable:
                     center_y = min(center_y, y1+35)
-                if tap == 'yes' and label not in ('الألعاب', 'المزيد', 'صفحات') and center_y >= (1130 if story_reader else 740):
+                if tap == 'yes' and not navigation and center_y >= height - 104:
                     behind_navigation = True
                     continue
                 priority = (not clickable, not exact) if story_cover else (not exact, not clickable)
@@ -81,21 +105,22 @@ for attempt in range(15):
                     subprocess.run(['adb','shell','input','tap',*point],check=True)
                 print('Android UI:', label, 'tapped' if tap == 'yes' else 'visible', flush=True)
                 sys.exit(0)
-            if behind_navigation:
-                subprocess.run(['adb','shell','input','swipe','193','690','193','490','280'],check=True)
+            # WebView can momentarily expose only the document title to UI Automator.
+            # Move keyboard focus into the document and keep testing the real controls.
+            if len(visible) == 1 and len(list(root.iter('node'))) <= 6:
+                title_only_dumps += 1
+                if title_only_dumps in (2, 5):
+                    subprocess.run(['adb','shell','input','keyevent','KEYCODE_TAB'],check=True)
                 time.sleep(.5)
                 continue
-    if attempt in (3,6,9,12):
-        subprocess.run(['adb','shell','input','swipe','193', '1110' if story_reader else '725','193','370','350'],check=True)
+            if behind_navigation:
+                subprocess.run(['adb','shell','input','swipe',midpoint,str(height-154),midpoint,str(height-354),'280'],check=True)
+                time.sleep(.5)
+                continue
+    if not navigation and attempt in (1,3,5,7,9,11,13):
+        subprocess.run(['adb','shell','input','swipe',midpoint,str(height-135),midpoint,str(height//3),'350'],check=True)
     time.sleep(1)
 print('Visible controls:', visible, flush=True)
-# Preserve the actual failed screen and WebView accessibility tree for diagnosis.
-with open('build/play-device/android-failure.png', 'wb') as output:
-    subprocess.run(['adb','exec-out','screencap','-p'], stdout=output, check=False)
-with open('build/play-device/android-failure.xml', 'wb') as output:
-    subprocess.run(['adb','exec-out','cat','/sdcard/fudool-ui.xml'], stdout=output, check=False)
-with open('build/play-device/android-failure-logcat.txt', 'wb') as output:
-    subprocess.run(['adb','logcat','-d','-t','1500','chromium:V','AndroidRuntime:E','*:S'], stdout=output, check=False)
 raise SystemExit('Offline Android view did not display: ' + label)
 PY
 }
@@ -104,29 +129,31 @@ adb shell wm size 820x1280
 adb shell wm density 160
 adb shell am force-stop "$package"
 adb shell am start -W -n "$activity"
-find_label 'صفحات' no
+find_label 'الحكايات' no
 adb exec-out screencap -p > build/play-device/android-home-safe-bars.png
-find_label 'صفحات' yes
-adb shell input swipe 385 1090 385 490 300
-find_label 'فضّول وسرّ الحديقة' yes
-find_label '1/9' no
+find_label 'الحكايات' yes
+find_label 'سامي وظِلّه الصغير' yes
+find_label '1/5' no
 find_label 'التالي' yes
-find_label '2/9' no
+find_label '2/5' no
 find_label 'تكبير الصورة' yes
 find_label 'إغلاق' no
 find_label 'التالي' yes
-find_label '3/9' no
-find_label 'أخرج عدسته المكبّرة وفحص التربة' no
+find_label 'تحت شجرة كبيرة' no
+find_label '3/5' no
 adb exec-out screencap -p > build/play-device/android-zoom-reader.png
 find_label 'إغلاق' yes
-adb exec-out screencap -p > build/play-device/android-offline-garden.png
+adb exec-out screencap -p > build/play-device/android-offline-shadow-story.png
 find_label 'كل القصص' yes
-adb shell input swipe 385 1090 385 490 300
-find_label 'رحلة إلى مدينة الطاقة النظيفة' yes
-find_label '1/8' no
+# Check the second story from a fresh WebView to avoid a stale UI Automator tree.
+adb shell am force-stop "$package"
+adb shell am start -W -n "$activity"
+find_label 'الحكايات' yes
+find_label 'ريم وأثر الكتاب الضائع' yes
+find_label '1/5' no
 find_label 'التالي' yes
-find_label '2/8' no
-adb exec-out screencap -p > build/play-device/android-offline-clean-energy.png
+find_label '2/5' no
+adb exec-out screencap -p > build/play-device/android-offline-library-story.png
 echo "PASS Android $version opens and turns pages in both new stories in airplane mode."
 
 adb shell am force-stop "$package"
@@ -135,18 +162,27 @@ adb shell wm density 160
 adb shell am start -W -n "$activity"
 
 find_label 'المزيد' yes
-find_label 'الحروف العربية' yes
+find_label 'تصفح أوراق العمل' yes
+find_label 'افتح ورقة العمل: رحلتي الأولى مع الحروف العربية' yes
 find_label 'صفحة 1' no
 adb exec-out screencap -p > build/play-device/android-offline-pdf.png
 find_label 'رجوع إلى التطبيق' yes
+find_label 'افتح ورقة العمل: صيّاد الأشكال' yes
+find_label 'صفحة 1' no
+find_label 'رجوع إلى التطبيق' yes
+find_label 'المزيد' yes
 find_label 'الصوت واسم اللاعب' yes
-find_label 'اسم اللاعب' no
-find_label 'مستويات الصوت' no
-find_label 'حقل اسم اللاعب' yes android.widget.EditText
+find_label 'اسم اللاعب' yes android.widget.EditText
 adb shell input text 'Fudool'
+find_label 'Fudool' no android.widget.EditText
+# Dismiss the keyboard before finding the save button below the name field.
+if [[ $(adb shell dumpsys input_method) == *mInputShown=true* ]]; then
+  adb shell input keyevent KEYCODE_BACK
+fi
 find_label 'حفظ الاسم' yes
 find_label 'حُفظ اسم اللاعب' no
 adb exec-out screencap -p > build/play-device/android-offline-settings.png
+find_label 'مستويات الصوت' no
 find_label 'الرئيسية' yes
 find_label 'أهلًا، Fudool!' no
 find_label 'الألعاب' yes
@@ -198,14 +234,15 @@ find_label 'تُقبل الكتابة عند تجاوز 75%' no
 find_label 'اسمع الكلمة' yes
 find_label 'استمع ببطء' yes
 adb exec-out screencap -p > build/play-device/android-offline-writing.png
-echo "PASS Android $version upgrades from 6.7.1 and opens settings, dictation, memory and age-based games in airplane mode."
+echo "PASS website APK $version upgrades from 6.7.1; Play build opens settings, dictation, memory and age-based games in airplane mode."
 
 adb shell am force-stop "$package"
 adb shell wm size 800x1280
 adb shell wm density 160
 adb shell am start -W -n "$activity"
 find_label 'المزيد' yes
-find_label 'الحروف العربية' yes
+find_label 'تصفح أوراق العمل' yes
+find_label 'افتح ورقة العمل: رحلتي الأولى مع الحروف العربية' yes
 find_label 'صفحة 1' no
 adb exec-out screencap -p > build/play-device/android-tablet-pdf.png
 adb shell cat /proc/meminfo | head -6 > build/play-device/device-memory.txt

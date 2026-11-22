@@ -31,7 +31,7 @@ public final class WorksheetActivity extends Activity {
 
     static boolean validPath(String path) {
         return path != null && (path.matches("/print/(ar|en)/(arabic-letter-sounds|arabic-letters|arabic-numbers|count-the-stars|english-abc-sheet|english-letters|english-numbers)\\.pdf")
-                || path.matches("/print/worksheets/(5-6|7-8|9-10)/worksheet-\\d{2}\\.pdf"));
+                || path.matches("/print/worksheets/(3-4|5-6|7-8|9-10)/worksheet-\\d{2}\\.pdf"));
     }
 
     @Override protected void onCreate(Bundle state) {
@@ -41,7 +41,7 @@ public final class WorksheetActivity extends Activity {
             finish();
             return;
         }
-        arabic = path.startsWith("/print/ar/");
+        arabic = getIntent().getBooleanExtra("arabic", path.startsWith("/print/ar/"));
         index = state == null ? 0 : state.getInt("page");
         LinearLayout content = new LinearLayout(this);
         content.setOrientation(LinearLayout.VERTICAL);

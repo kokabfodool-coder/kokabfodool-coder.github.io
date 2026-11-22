@@ -1,0 +1,57 @@
+{
+  "id": "sami-and-his-little-shadow",
+  "titleAr": "سامي وظِلّه الصغير",
+  "titleEn": "Sami and His Little Shadow",
+  "ageMin": 3,
+  "ageMax": 4,
+  "readingMinutes": 2,
+  "description": "يلاحظ سامي ظلّه في الحديقة، ويلعب معه حتى يكتشف أين يظهر.",
+  "theme": "الضوء والظلال",
+  "characters": [
+    "سامي",
+    "الأم"
+  ],
+  "educationalValue": "ملاحظة الفرق بين المكان المشمس والظل.",
+  "questions": [
+    {
+      "question": "متى ظهر ظلّ سامي من جديد؟",
+      "options": [
+        "عندما عاد إلى الشمس",
+        "عندما بقي تحت الشجرة"
+      ],
+      "correctIndex": 0
+    }
+  ],
+  "schemaVersion": 1,
+  "isFree": true,
+  "cover": "cover.webp",
+  "pages": [
+    {
+      "number": 1,
+      "image": "page-01.webp",
+      "text": "مَشَى سامِي فِي الشَّمْسِ. رَأَى ظِلًّا قُرْبَ حِذائِهِ!"
+    },
+    {
+      "number": 2,
+      "image": "page-02.webp",
+      "text": "رَفَعَ سامِي يَدَيْهِ. رَفَعَ الظِّلُّ يَدَيْهِ أَيْضًا!"
+    },
+    {
+      "number": 3,
+      "image": "page-03.webp",
+      "text": "وَقَفَ تَحْتَ شَجَرَةٍ كَبيرَةٍ. لَمْ يَرَ ظِلَّهُ هُناكَ."
+    },
+    {
+      "number": 4,
+      "image": "page-04.webp",
+      "text": "عادَ إِلَى الشَّمْسِ. ها هُوَ ظِلُّهُ مِنْ جَديدٍ!"
+    },
+    {
+      "number": 5,
+      "image": "page-05.webp",
+      "text": "أَمْسَكَ سامِي يَدَ أُمِّهِ. عادَا إِلَى البَيْتِ وَمَعَهُما ظِلّانِ."
+    }
+  ],
+  "pageCount": 5,
+  "status": "published"
+}

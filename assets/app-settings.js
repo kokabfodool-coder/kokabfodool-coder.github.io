@@ -17,6 +17,7 @@ const nameForm = root.querySelector('[data-player-form]');
 function showPlayer() {
   const player = activeProfile();
   label.textContent = player.name || tr('المستكشف الأول', 'First explorer');
+  root.querySelector("[data-player-avatar]").src = "/assets/" + player.avatar + ".webp";
   nameForm.elements.nickname.value = player.name;
 }
 showPlayer();
@@ -130,7 +131,7 @@ window.fudoolBackupFile = (status, contents) => {
 
 if (device?.emailBackupAvailable?.()) {
   const parentPanel = root.querySelector('[data-parent-backup]');
-  import('./parent-backup.js?v=2')
+  import('./parent-backup.js?v=3')
     .then(module => module.mountParentBackup(parentPanel, () => label.textContent))
     .catch(() => {});
 }

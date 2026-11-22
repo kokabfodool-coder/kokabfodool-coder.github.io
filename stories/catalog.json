@@ -1,203 +1,269 @@
 {
- "stories": [
-  {
-   "id": "mishal-blue-balloon",
-   "titleAr": "مشعال والبالون الأزرق",
-   "ageMin": 3,
-   "ageMax": 4,
-   "theme": "الصداقة والتعاون",
-   "characters": [
-    "مشعال",
-    "روبو"
-   ],
-   "pageCount": 6,
-   "readingMinutes": 2,
-   "educationalValue": "التعاون وشكر من يساعدنا",
-   "cover": "cover.webp",
-   "titleEn": "Mishal and the Blue Balloon"
-  },
-  {
-   "id": "robo-little-seed",
-   "titleAr": "روبو والبذرة الصغيرة",
-   "ageMin": 5,
-   "ageMax": 6,
-   "theme": "الطبيعة والنباتات",
-   "characters": [
-    "روبو",
-    "مشعال"
-   ],
-   "pageCount": 7,
-   "readingMinutes": 2,
-   "educationalValue": "الصبر، المسؤولية، والعناية بالنباتات",
-   "cover": "cover.webp",
-   "titleEn": "Robo and the Little Seed"
-  },
-  {
-   "id": "fudool-garden-mystery",
-   "titleAr": "فضّول وسرّ الحديقة",
-   "ageMin": 7,
-   "ageMax": 8,
-   "theme": "الطبيعة والاستقصاء العلمي",
-   "characters": [
-    "فضّول",
-    "البستاني"
-   ],
-   "pageCount": 9,
-   "readingMinutes": 3,
-   "educationalValue": "الملاحظة والاستقصاء، حل المشكلات، ترشيد الماء",
-   "cover": "cover.webp",
-   "titleEn": "Fudool and the Garden Mystery"
-  },
-  {
-   "id": "clean-energy-city",
-   "titleAr": "رحلة إلى مدينة الطاقة النظيفة",
-   "ageMin": 9,
-   "ageMax": 10,
-   "theme": "العلوم والطاقة والبيئة",
-   "characters": [
-    "مشعال",
-    "روبو",
-    "فضّول",
-    "مهندسة المدينة"
-   ],
-   "pageCount": 8,
-   "readingMinutes": 4,
-   "educationalValue": "التفكير العلمي، الاستدامة، المسؤولية البيئية",
-   "cover": "cover.webp",
-   "titleEn": "A Journey to the Clean Energy City"
-  },
-  {
-   "id": "lumaa-colorful-breakfast",
-   "titleAr": "لمعة ووجبة الألوان",
-   "ageMin": 3,
-   "ageMax": 4,
-   "theme": "الصحة والتغذية",
-   "characters": [
-    "لُمعة"
-   ],
-   "pageCount": 6,
-   "readingMinutes": 2,
-   "educationalValue": "التغذية المتنوعة والنظافة",
-   "cover": "cover.webp",
-   "titleEn": "Lumaa and the Colorful Meal"
-  },
-  {
-   "id": "robo-block-tower",
-   "titleAr": "روبو وبرج المكعبات",
-   "ageMin": 5,
-   "ageMax": 6,
-   "theme": "المثابرة والتفكير الهندسي",
-   "characters": [
-    "روبو",
-    "مشعال"
-   ],
-   "pageCount": 7,
-   "readingMinutes": 3,
-   "educationalValue": "المثابرة والتعلم من الخطأ",
-   "cover": "cover.webp",
-   "titleEn": "Robo and the Block Tower"
-  },
-  {
-   "id": "fudool-sealed-letter",
-   "titleAr": "فضّول والرسالة المغلقة",
-   "ageMin": 7,
-   "ageMax": 8,
-   "theme": "الأمانة والخصوصية",
-   "characters": [
-    "فضّول",
-    "روبو",
-    "أمينة المكتبة",
-    "طفل"
-   ],
-   "pageCount": 9,
-   "readingMinutes": 4,
-   "educationalValue": "الأمانة واحترام الخصوصية",
-   "cover": "cover.webp",
-   "titleEn": "Fudool and the Sealed Letter"
-  },
-  {
-   "id": "mishaal-mysterious-news",
-   "titleAr": "مشعال والخبر الغامض",
-   "ageMin": 9,
-   "ageMax": 10,
-   "theme": "الثقافة الرقمية والتحقق من الأخبار",
-   "characters": [
-    "مشعال",
-    "روبو",
-    "فضّول",
-    "المعلمة"
-   ],
-   "pageCount": 9,
-   "readingMinutes": 6,
-   "educationalValue": "التفكير النقدي والتحقق من المعلومات قبل مشاركتها",
-   "cover": "cover.webp",
-   "titleEn": "Mishaal and the Mysterious News"
-  },
-  {
-   "id": "batboota-rain-drop",
-   "titleAr": "بطبوطة وقطرة المطر",
-   "ageMin": 3,
-   "ageMax": 4,
-   "theme": "الطبيعة والمطر",
-   "characters": [
-    "بطبوطة"
-   ],
-   "pageCount": 6,
-   "readingMinutes": 2,
-   "educationalValue": "تقبّل الجديد وملاحظة الطبيعة، والفضول الإيجابي",
-   "cover": "cover.webp",
-   "titleEn": "Batboota and the Raindrop"
-  },
-  {
-   "id": "fox-friendship-lantern",
-   "titleAr": "الثعلب وفانوس الصداقة",
-   "ageMin": 5,
-   "ageMax": 6,
-   "theme": "الصداقة والتعاون",
-   "characters": [
-    "فلفول",
-    "القنفذ",
-    "الأرنب"
-   ],
-   "pageCount": 8,
-   "readingMinutes": 3,
-   "educationalValue": "المشاركة ومساعدة الآخرين، وأن الصداقة نور حقيقي",
-   "cover": "cover.webp",
-   "titleEn": "The Fox and the Lantern of Friendship"
-  },
-  {
-   "id": "layan-magic-clock",
-   "titleAr": "ليان وساعة الزمن العجيبة",
-   "ageMin": 7,
-   "ageMax": 8,
-   "theme": "الوقت وتنظيم المهام",
-   "characters": [
-    "ليان",
-    "جدها",
-    "أخوها"
-   ],
-   "pageCount": 9,
-   "readingMinutes": 4,
-   "educationalValue": "إدارة الوقت والمسؤولية والتوازن بين الواجب واللعب",
-   "cover": "cover.webp",
-   "titleEn": "Layan and the Magic Clock"
-  },
-  {
-   "id": "sunken-city-secrets",
-   "titleAr": "أسرار المدينة الغارقة",
-   "ageMin": 9,
-   "ageMax": 10,
-   "theme": "العلوم والبيئة وحماية البحر",
-   "characters": [
-    "سامي",
-    "الباحث",
-    "فريق البحث البحري"
-   ],
-   "pageCount": 10,
-   "readingMinutes": 5,
-   "educationalValue": "التفكير العلمي والملاحظة وحماية البيئة البحرية والعمل الجماعي",
-   "cover": "cover.webp",
-   "titleEn": "Secrets of the Sunken City"
-  }
- ]
+  "stories": [
+    {
+      "id": "sami-and-his-little-shadow",
+      "titleAr": "سامي وظِلّه الصغير",
+      "titleEn": "Sami and His Little Shadow",
+      "ageMin": 3,
+      "ageMax": 4,
+      "theme": "الضوء والظلال",
+      "characters": [
+        "سامي",
+        "الأم"
+      ],
+      "pageCount": 5,
+      "readingMinutes": 2,
+      "educationalValue": "ملاحظة الفرق بين المكان المشمس والظل.",
+      "cover": "cover.webp"
+    },
+    {
+      "id": "hala-and-the-paper-bridge",
+      "titleAr": "هلا وجسر الورق",
+      "titleEn": "Hala and the Paper Bridge",
+      "ageMin": 5,
+      "ageMax": 6,
+      "theme": "التجربة والهندسة",
+      "characters": [
+        "هلا",
+        "صديق هلا"
+      ],
+      "pageCount": 5,
+      "readingMinutes": 3,
+      "educationalValue": "اختبار كيف يغيّر شكل الورقة قدرتها على حمل جسم خفيف.",
+      "cover": "cover.webp"
+    },
+    {
+      "id": "reem-and-the-library-trail",
+      "titleAr": "ريم وأثر الكتاب الضائع",
+      "titleEn": "Reem and the Library Trail",
+      "ageMin": 7,
+      "ageMax": 8,
+      "theme": "الاستقصاء والتعاون",
+      "characters": [
+        "ريم",
+        "ليث",
+        "أمينة المكتبة"
+      ],
+      "pageCount": 5,
+      "readingMinutes": 4,
+      "educationalValue": "التمييز بين الملاحظة والتخمين وربط دليلين.",
+      "cover": "cover.webp"
+    },
+    {
+      "id": "the-signal-above-the-mangroves",
+      "titleAr": "الإشارة فوق أشجار القُرْم",
+      "titleEn": "The Signal Above the Mangroves",
+      "ageMin": 9,
+      "ageMax": 10,
+      "theme": "الملاحظة العلمية وطبيعة الإمارات",
+      "characters": [
+        "جنى",
+        "عمر",
+        "مرشد المحمية"
+      ],
+      "pageCount": 5,
+      "readingMinutes": 5,
+      "educationalValue": "تسجيل الملاحظات ومقارنة فرضيتين مع احترام قواعد المحمية.",
+      "cover": "cover.webp"
+    },
+    {
+      "id": "mishal-blue-balloon",
+      "titleAr": "مشعال والبالون الأزرق",
+      "ageMin": 3,
+      "ageMax": 4,
+      "theme": "الصداقة والتعاون",
+      "characters": [
+        "مشعال",
+        "روبو"
+      ],
+      "pageCount": 6,
+      "readingMinutes": 2,
+      "educationalValue": "التعاون وشكر من يساعدنا",
+      "cover": "cover.webp",
+      "titleEn": "Mishal and the Blue Balloon"
+    },
+    {
+      "id": "robo-little-seed",
+      "titleAr": "روبو والبذرة الصغيرة",
+      "ageMin": 5,
+      "ageMax": 6,
+      "theme": "الطبيعة والنباتات",
+      "characters": [
+        "روبو",
+        "مشعال"
+      ],
+      "pageCount": 7,
+      "readingMinutes": 2,
+      "educationalValue": "الصبر، المسؤولية، والعناية بالنباتات",
+      "cover": "cover.webp",
+      "titleEn": "Robo and the Little Seed"
+    },
+    {
+      "id": "fudool-garden-mystery",
+      "titleAr": "فضّول وسرّ الحديقة",
+      "ageMin": 7,
+      "ageMax": 8,
+      "theme": "الطبيعة والاستقصاء العلمي",
+      "characters": [
+        "فضّول",
+        "البستاني"
+      ],
+      "pageCount": 9,
+      "readingMinutes": 3,
+      "educationalValue": "الملاحظة والاستقصاء، حل المشكلات، ترشيد الماء",
+      "cover": "cover.webp",
+      "titleEn": "Fudool and the Garden Mystery"
+    },
+    {
+      "id": "clean-energy-city",
+      "titleAr": "رحلة إلى مدينة الطاقة النظيفة",
+      "ageMin": 9,
+      "ageMax": 10,
+      "theme": "العلوم والطاقة والبيئة",
+      "characters": [
+        "مشعال",
+        "روبو",
+        "فضّول",
+        "مهندسة المدينة"
+      ],
+      "pageCount": 8,
+      "readingMinutes": 4,
+      "educationalValue": "التفكير العلمي، الاستدامة، المسؤولية البيئية",
+      "cover": "cover.webp",
+      "titleEn": "A Journey to the Clean Energy City"
+    },
+    {
+      "id": "lumaa-colorful-breakfast",
+      "titleAr": "لمعة ووجبة الألوان",
+      "ageMin": 3,
+      "ageMax": 4,
+      "theme": "الصحة والتغذية",
+      "characters": [
+        "لُمعة"
+      ],
+      "pageCount": 6,
+      "readingMinutes": 2,
+      "educationalValue": "التغذية المتنوعة والنظافة",
+      "cover": "cover.webp",
+      "titleEn": "Lumaa and the Colorful Meal"
+    },
+    {
+      "id": "robo-block-tower",
+      "titleAr": "روبو وبرج المكعبات",
+      "ageMin": 5,
+      "ageMax": 6,
+      "theme": "المثابرة والتفكير الهندسي",
+      "characters": [
+        "روبو",
+        "مشعال"
+      ],
+      "pageCount": 7,
+      "readingMinutes": 3,
+      "educationalValue": "المثابرة والتعلم من الخطأ",
+      "cover": "cover.webp",
+      "titleEn": "Robo and the Block Tower"
+    },
+    {
+      "id": "fudool-sealed-letter",
+      "titleAr": "فضّول والرسالة المغلقة",
+      "ageMin": 7,
+      "ageMax": 8,
+      "theme": "الأمانة والخصوصية",
+      "characters": [
+        "فضّول",
+        "روبو",
+        "أمينة المكتبة",
+        "طفل"
+      ],
+      "pageCount": 9,
+      "readingMinutes": 4,
+      "educationalValue": "الأمانة واحترام الخصوصية",
+      "cover": "cover.webp",
+      "titleEn": "Fudool and the Sealed Letter"
+    },
+    {
+      "id": "mishaal-mysterious-news",
+      "titleAr": "مشعال والخبر الغامض",
+      "ageMin": 9,
+      "ageMax": 10,
+      "theme": "الثقافة الرقمية والتحقق من الأخبار",
+      "characters": [
+        "مشعال",
+        "روبو",
+        "فضّول",
+        "المعلمة"
+      ],
+      "pageCount": 9,
+      "readingMinutes": 6,
+      "educationalValue": "التفكير النقدي والتحقق من المعلومات قبل مشاركتها",
+      "cover": "cover.webp",
+      "titleEn": "Mishaal and the Mysterious News"
+    },
+    {
+      "id": "batboota-rain-drop",
+      "titleAr": "بطبوطة وقطرة المطر",
+      "ageMin": 3,
+      "ageMax": 4,
+      "theme": "الطبيعة والمطر",
+      "characters": [
+        "بطبوطة"
+      ],
+      "pageCount": 6,
+      "readingMinutes": 2,
+      "educationalValue": "تقبّل الجديد وملاحظة الطبيعة، والفضول الإيجابي",
+      "cover": "cover.webp",
+      "titleEn": "Batboota and the Raindrop"
+    },
+    {
+      "id": "fox-friendship-lantern",
+      "titleAr": "الثعلب وفانوس الصداقة",
+      "ageMin": 5,
+      "ageMax": 6,
+      "theme": "الصداقة والتعاون",
+      "characters": [
+        "فلفول",
+        "القنفذ",
+        "الأرنب"
+      ],
+      "pageCount": 8,
+      "readingMinutes": 3,
+      "educationalValue": "المشاركة ومساعدة الآخرين، وأن الصداقة نور حقيقي",
+      "cover": "cover.webp",
+      "titleEn": "The Fox and the Lantern of Friendship"
+    },
+    {
+      "id": "layan-magic-clock",
+      "titleAr": "ليان وساعة الزمن العجيبة",
+      "ageMin": 7,
+      "ageMax": 8,
+      "theme": "الوقت وتنظيم المهام",
+      "characters": [
+        "ليان",
+        "جدها",
+        "أخوها"
+      ],
+      "pageCount": 9,
+      "readingMinutes": 4,
+      "educationalValue": "إدارة الوقت والمسؤولية والتوازن بين الواجب واللعب",
+      "cover": "cover.webp",
+      "titleEn": "Layan and the Magic Clock"
+    },
+    {
+      "id": "sunken-city-secrets",
+      "titleAr": "أسرار المدينة الغارقة",
+      "ageMin": 9,
+      "ageMax": 10,
+      "theme": "العلوم والبيئة وحماية البحر",
+      "characters": [
+        "سامي",
+        "الباحث",
+        "فريق البحث البحري"
+      ],
+      "pageCount": 10,
+      "readingMinutes": 5,
+      "educationalValue": "التفكير العلمي والملاحظة وحماية البيئة البحرية والعمل الجماعي",
+      "cover": "cover.webp",
+      "titleEn": "Secrets of the Sunken City"
+    }
+  ]
 }

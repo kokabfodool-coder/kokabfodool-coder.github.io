@@ -13,9 +13,9 @@
 <link rel="icon" href="/assets/app-icon-192.png">
 <link rel="stylesheet" href="/assets/site.css?v=15">
 <link rel="stylesheet" href="/assets/app-experience.css?v=1">
-<link rel="stylesheet" href="/assets/app-settings.css?v=2">
+<link rel="stylesheet" href="/assets/app-settings.css?v=3">
 <link rel="stylesheet" href="/assets/learning-presence.css?v=1">
-<script type="module" src="/assets/app-settings.js?v=4"></script>
+<script type="module" src="/assets/app-settings.js?v=5"></script>
 <link rel="stylesheet" href="/assets/cinematic.css?v=1"/>
 <link rel="stylesheet" href="/assets/app-accessibility.css?v=1"><script type="module" src="/assets/app-accessibility.js?v=1"></script></head>
 <body class="app-experience-body">
@@ -24,8 +24,8 @@
   <a class="app-top-brand" href="/play-app/"><img src="/assets/app-icon-192.png" alt="" width="43" height="43"><span>كوكب فضول</span></a>
   <div class="app-top-actions"><a href="/en/app/settings/">English</a><a href="/play-app/">الرئيسية</a></div>
 </header>
-<div class="settings-intro"><h1>الإعدادات</h1><p>خصّص صوت التطبيق واسم اللاعب وتولَّ نقل تقدّمه إلى جهاز آخر.</p></div>
-<section class="settings-card" aria-labelledby="player-settings-title">
+<div class="settings-intro"><img class="settings-avatar" data-player-avatar src="/assets/brand.webp" alt="" width="64" height="64"><h1>العائلة والإعدادات</h1><p>خصّص صوت التطبيق واسم اللاعب وتولَّ نقل تقدّمه إلى جهاز آخر.</p></div>
+<nav class="settings-index" aria-label="العائلة والإعدادات"><a href="#player-settings-title">اللاعب</a><a href="#display-preferences-title">العرض والراحة</a><a href="#sound-settings-title">الصوت</a><a href="#progress-settings-title">التقدّم والحساب</a></nav><section class="settings-card" aria-labelledby="player-settings-title">
   <h2 id="player-settings-title">اللاعب</h2>
   <p class="settings-note">الملف الحالي · <bdi data-player-label></bdi></p>
   <form data-player-form>
@@ -71,6 +71,7 @@
   </div>
   <button class="button button-white" type="button" data-parent-reset hidden>نسيت كلمة المرور؟</button>
   <div data-parent-tools hidden>
+    <p class="settings-note" data-backup-info></p>
     <p class="settings-note">حسابك <strong><bdi data-parent-email></bdi></strong></p>
     <p class="settings-note"><bdi data-parent-player></bdi> · اختر الخانة نفسها لهذا اللاعب عند استخدام جهاز آخر.</p>
     <label>خانة النسخة المحفوظة<select><option value="1">الخانة 1</option><option value="2">الخانة 2</option><option value="3">الخانة 3</option><option value="4">الخانة 4</option><option value="5">الخانة 5</option><option value="6">الخانة 6</option></select></label>
@@ -84,7 +85,7 @@
   <p class="settings-alert" data-parent-status role="status"></p>
 </div>
 </section>
-</main>
+<section class="settings-card"><h2>مساحة الأهل</h2><div class="settings-actions"><a class="button button-primary" href="/play-app/#v5-pro">كوكب فضول بلس</a><a class="button button-white" href="/play-app/#v5-achievements">تقدّم التعلّم</a><a href="/privacy/">الخصوصية</a><a href="/faq/">المساعدة</a></div></section><nav class="settings-bottom" aria-label="العائلة والإعدادات"><a href="/play-app/">الرئيسية</a><a href="/play-app/#v5-games">الألعاب</a><a href="/play-app/#v5-more">المزيد</a></nav></main>
 <a class="download-app-bubble" href="/downloads/apps/kawkab-fudool.apk" download><span aria-hidden="true">↓</span> تحميل التطبيق</a>
 </body>
 </html>

@@ -10,6 +10,8 @@ on:
       - 'print/**'
       - 'scripts/**'
       - '.github/workflows/google-play.yml'
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
@@ -75,17 +77,25 @@ jobs:
           test -n "$VERSION" && test -n "$CODE"
           echo "APP_VERSION=$VERSION" >> "$GITHUB_ENV"
           echo "APP_VERSION_CODE=$CODE" >> "$GITHUB_ENV"
-          gradle -p android-app --no-daemon bundleRelease assembleRelease
-          mkdir -p build/play
-          cp build/play-gradle/outputs/bundle/release/*.aab "build/play/Kawkab-Fudool-$VERSION.aab"
-          cp build/play-gradle/outputs/apk/release/*-release.apk "build/play/Kawkab-Fudool-$VERSION.apk"
+          gradle -p android-app --no-daemon bundlePlayStoreRelease assemblePlayStoreRelease assembleWebsiteRelease
+          mkdir -p build/play/website
+          cp build/play-gradle/outputs/bundle/playStoreRelease/*.aab "build/play/Kawkab-Fudool-$VERSION.aab"
+          cp build/play-gradle/outputs/apk/playStore/release/*-release.apk "build/play/Kawkab-Fudool-$VERSION.apk"
+          cp build/play-gradle/outputs/apk/website/release/*-release.apk "build/play/website/Kawkab-Fudool-$VERSION.apk"
           tools="$ANDROID_HOME/build-tools/35.0.0"
           "$tools/apksigner" verify --verbose --print-certs build/play/*.apk | tee build/play/apk-signature.txt
           grep -F "$FUDOOL_CERT_SHA256" build/play/apk-signature.txt
           "$tools/zipalign" -c -P 16 -v 4 build/play/*.apk > build/play/alignment.txt
           "$tools/aapt" dump badging build/play/*.apk > build/play/apk-badging.txt
+          grep -Fx "sdkVersion:'24'" build/play/apk-badging.txt
           grep -F "targetSdkVersion:'36'" build/play/apk-badging.txt
-          grep -F "name='com.kokabfodool.offline' versionCode='$CODE'" build/play/apk-badging.txt
+          grep -F "name='kokab.fodool' versionCode='$CODE'" build/play/apk-badging.txt
+          "$tools/apksigner" verify --verbose --print-certs build/play/website/*.apk | tee build/play/website/apk-signature.txt
+          grep -F "$FUDOOL_CERT_SHA256" build/play/website/apk-signature.txt
+          "$tools/zipalign" -c -P 16 -v 4 build/play/website/*.apk > build/play/website/alignment.txt
+          "$tools/aapt" dump badging build/play/website/*.apk > build/play/website/apk-badging.txt
+          grep -F "name='com.kokabfodool.offline' versionCode='$CODE'" build/play/website/apk-badging.txt
+          grep -Fx "sdkVersion:'23'" build/play/website/apk-badging.txt
           jarsigner -verify build/play/*.aab | tee build/play/aab-signature.txt
           grep -Fx 'jar verified.' build/play/aab-signature.txt
           keytool -printcert -jarfile build/play/*.aab > build/play/aab-certificate.txt
@@ -96,9 +106,11 @@ jobs:
             -o "$RUNNER_TEMP/bundletool.jar"
           java -jar "$RUNNER_TEMP/bundletool.jar" validate --bundle="build/play/Kawkab-Fudool-$VERSION.aab"
           java -jar "$RUNNER_TEMP/bundletool.jar" dump manifest --bundle="build/play/Kawkab-Fudool-$VERSION.aab" --module=base > build/play/aab-manifest.xml
+          grep -F 'package="kokab.fodool"' build/play/aab-manifest.xml
+          grep -F 'android:minSdkVersion="24"' build/play/aab-manifest.xml
           grep -F 'android:targetSdkVersion="36"' build/play/aab-manifest.xml
           python3 scripts/verify-play-artifacts.py build/play
-          (cd build/play && sha256sum *.apk *.aab > SHA256SUMS)
+          (cd build/play && sha256sum *.apk *.aab website/*.apk > SHA256SUMS)
       - name: Remove signing key
         if: always()
         run: rm -f "$RUNNER_TEMP/fudool-signing.jks"
@@ -131,7 +143,6 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     needs: build
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
@@ -145,7 +156,7 @@ jobs:
           target: google_apis
           arch: x86_64
           disable-animations: true
-          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -feature -Vulkan -memory 2048 -cores 2
+          emulator-options: -no-window -gpu software -no-snapshot -noaudio -no-boot-anim -feature -Vulkan -memory 3072 -cores 2
           script: bash scripts/test-play-android.sh
       - uses: actions/upload-artifact@v4
         if: always()
@@ -155,7 +166,7 @@ jobs:
 
   stage-website-apk:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release/'))
-    needs: [build, browser]
+    needs: [build, browser, android]
     runs-on: ubuntu-24.04
     timeout-minutes: 8
     permissions:
@@ -172,7 +183,7 @@ jobs:
         run: |
           set -euo pipefail
           (cd build/play && sha256sum -c SHA256SUMS)
-          python3 scripts/stage-stories-apk.py build/play
+          python3 scripts/stage-stories-apk.py build/play/website
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A -- downloads/apps

@@ -58,7 +58,11 @@ public class MainActivity extends Activity {
                 if(req.isForMainFrame() && "https".equals(u.getScheme()) && host.equals(u.getHost()) && "/play-app/external/".equals(p)){openExternalLink(u.getQueryParameter("url"));return true;}
                 if ("https".equals(u.getScheme()) && host.equals(u.getHost())) {
                     if (req.isForMainFrame() && WorksheetActivity.validPath(p)) {
-                        startActivity(new Intent(MainActivity.this, WorksheetActivity.class).putExtra("worksheet", p));
+                        String source = view.getUrl();
+                        String sourcePath = source == null ? null : Uri.parse(source).getPath();
+                        boolean arabic = sourcePath == null || !sourcePath.startsWith("/en/");
+                        startActivity(new Intent(MainActivity.this, WorksheetActivity.class)
+                                .putExtra("worksheet", p).putExtra("arabic", arabic));
                         return true;
                     }
                     if (allowedPage(p)) return false;
@@ -161,8 +165,9 @@ public class MainActivity extends Activity {
         boolean allowedTikTok = "www.tiktok.com".equals(h) && "/@kokab_fodool".equals(u.getPath());
         boolean youtube = "www.youtube.com".equals(h) || "youtube.com".equals(h)
                 || "m.youtube.com".equals(h) || "youtu.be".equals(h);
+        boolean plusContact = "wa.me".equals(h) && "/971505918238".equals(u.getPath());
         boolean allowedHost = "kokabfodool.com".equals(h) || youtube
-                || "www.instagram.com".equals(h) || "wa.me".equals(h) || allowedTikTok;
+                || "www.instagram.com".equals(h) || plusContact || allowedTikTok;
         if (!"https".equals(u.getScheme()) || u.getUserInfo() != null
                 || (u.getPort() != -1 && u.getPort() != 443) || !allowedHost) return;
         String current = web.getUrl();
@@ -171,15 +176,18 @@ public class MainActivity extends Activity {
             launchExternalLink(u, ar);
             return;
         }
-        int a = 12 + new Random().nextInt(18);
-        int b = 12 + new Random().nextInt(18);
+        Random random = new Random();
+        int a = plusContact ? 2 + random.nextInt(4) : 12 + random.nextInt(18);
+        int b = plusContact ? 1 + random.nextInt(4) : 12 + random.nextInt(18);
+        int expected = plusContact ? a + b : a * b;
+        String question = a + (plusContact ? " + " : " × ") + b;
         EditText answer = new EditText(this);
         answer.setInputType(InputType.TYPE_CLASS_NUMBER);
         answer.setHint(ar ? "الإجابة" : "Answer");
         AlertDialog gate = new AlertDialog.Builder(this)
                 .setTitle(ar ? "للأهل" : "For parents")
                 .setMessage((ar ? "لفتح رابط خارج كوكب فضول، أدخل ناتج " : "To open a link outside Kawkab Fudool, enter the answer to ")
-                        + a + " × " + b)
+                        + question)
                 .setView(answer)
                 .setNegativeButton(android.R.string.cancel, null)
                 .setPositiveButton(ar ? "فتح الرابط" : "Open link", null)
@@ -187,7 +195,7 @@ public class MainActivity extends Activity {
         gate.setOnShowListener(dialog -> gate.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(view -> {
             String digits = answer.getText().toString().trim();
             try {
-                if (Integer.parseInt(digits) != a * b) throw new NumberFormatException();
+                if (Integer.parseInt(digits) != expected) throw new NumberFormatException();
             } catch (NumberFormatException error) {
                 answer.setError(ar ? "أعد المحاولة" : "Try again");
                 return;

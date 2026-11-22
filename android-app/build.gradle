@@ -12,11 +12,22 @@ android {
     namespace 'com.kokabfodool.shell'
     compileSdk 36
     defaultConfig {
-        applicationId 'com.kokabfodool.offline'
-        minSdk 23
+        applicationId 'kokab.fodool'
+        minSdk 24
         targetSdk 36
-        versionCode 80
-        versionName '6.10.0'
+        versionCode 84
+        versionName '6.10.4'
+    }
+    flavorDimensions += 'distribution'
+    productFlavors {
+        playStore {
+            dimension 'distribution'
+        }
+        website {
+            dimension 'distribution'
+            applicationId 'com.kokabfodool.offline'
+            minSdk 23
+        }
     }
     signingConfigs {
         release {

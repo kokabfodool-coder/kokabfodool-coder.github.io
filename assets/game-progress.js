@@ -167,6 +167,36 @@ export function bindJourney({id, levels}, board, renderRound) {
   let encouraged = false;
   setupWorld(id,board,map,result);
 
+  const navigation = document.createElement('nav');
+  navigation.className = 'game-exit-links';
+  navigation.setAttribute('aria-label', tr('مغادرة اللعبة', 'Leave the game'));
+  const app = /FudoolAndroidUnified/.test(navigator.userAgent);
+  let resultContent;
+  if (app) {
+    const actions = result.querySelector('.game-actions');
+    resultContent = document.createElement('div');
+    resultContent.className = 'game-result-content';
+    resultContent.append(...Array.from(result.childNodes).filter(node => node !== actions));
+    result.prepend(resultContent);
+  }
+  const locale = language === 'ar' ? '' : '/en';
+  const home = app ? locale + '/play-app/' : locale + '/';
+  const games = app ? home + '#v5-games' : locale + '/games/';
+  for (const [caption, href] of [[tr('الرئيسية', 'Home'), home], [tr('الألعاب', 'Games'), games]]) {
+    const link = document.createElement('a');
+    link.className = 'button button-white';
+    link.href = href;
+    link.textContent = caption;
+    navigation.append(link);
+  }
+  const soundBar = document.querySelector('.game-sound-bar');
+  if (soundBar) {
+    soundBar.classList.add('game-toolbar');
+    soundBar.prepend(navigation);
+  } else {
+    map.before(navigation);
+  }
+
   function currentPath(state) {
     const age = requestedAge ?? recommendedAge(activeProfile());
     return linkedPath ?? pathForAge(state.agePath) ?? pathForAge(age) ??
@@ -387,7 +417,7 @@ export function bindJourney({id, levels}, board, renderRound) {
       badges.append(badgeArt, document.createTextNode(unlocked[2]));
     }
     nextLevel.hidden = atEnd;
-    show(result);
+    show(result, !app);
     const endNote = atEnd && !allComplete
       ? tr('اختر مسارًا أو مستوى من الخريطة لتواصل اللعب.', 'Choose a path or level on the map to keep playing.')
       : undefined;
@@ -395,6 +425,10 @@ export function bindJourney({id, levels}, board, renderRound) {
       score: score(), best, total, badges: starBadges, rounds: levels[level].rounds.length,
       last: allComplete && atEnd, pathComplete, endNote, previousTotal,
     });
+    if (resultContent) {
+      resultContent.scrollTop = 0;
+      result.querySelector('h2').focus({preventScroll: true});
+    }
   }
 
   document.querySelectorAll('[data-level-menu]').forEach((button) => button.addEventListener('click', () => showMap()));

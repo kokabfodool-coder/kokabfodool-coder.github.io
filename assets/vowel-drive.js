@@ -1,5 +1,5 @@
 import {watchInstructionAudio} from './game-audio.js?v=7';
-import {driveAudioSource,repairedPartialClips} from './vowel-audio-routing.js?v=2';
+import {driveAudioSource,repairedPartialClips} from './vowel-audio-routing.js?v=3';
 import {pronunciation} from './arabic-pronunciation.js?v=1';
 import {bindJourney, shuffle,totalStars} from './game-progress.js?v=16';
 
