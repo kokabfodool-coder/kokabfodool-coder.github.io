@@ -145,6 +145,10 @@ adb exec-out screencap -p > build/play-device/android-zoom-reader.png
 find_label 'إغلاق' yes
 adb exec-out screencap -p > build/play-device/android-offline-shadow-story.png
 find_label 'كل القصص' yes
+# Check the second story from a fresh WebView to avoid a stale UI Automator tree.
+adb shell am force-stop "$package"
+adb shell am start -W -n "$activity"
+find_label 'الحكايات' yes
 find_label 'ريم وأثر الكتاب الضائع' yes
 find_label '1/5' no
 find_label 'التالي' yes
