@@ -146,6 +146,9 @@
  html.fudool-android-shell body:has(.game-shell) .drive-board .drive-adult{display:none!important}
  html.fudool-android-shell body:has(.game-shell) .drive-board .drive-route-meter{min-height:24px;padding:.15rem .55rem;gap:.4rem}
 }
+@media(max-width:900px) and (max-height:900px){
+ html.fudool-android-shell body:has(.game-shell) .game-board:not([hidden]) .code-grid.robo-maze{width:min(100%,220px)}
+}
 @media(max-width:900px) and (max-height:680px){
  html.fudool-android-shell body:has(.game-shell) .game-board:not([hidden]){padding:2px!important;gap:2px!important}
  html.fudool-android-shell body:has(.game-shell) .game-board[data-level-map] .game-path-choice{gap:.35rem!important;margin-block:.25rem!important}
