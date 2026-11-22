@@ -61,7 +61,7 @@ navigation = label in ('الألعاب', 'المزيد', 'الحكايات', 'ا
 size = subprocess.check_output(['adb','shell','wm','size'], text=True)
 width, height = map(int, re.findall(r'(\d+)x(\d+)', size)[-1])
 midpoint = str(width // 2)
-story_cover = label in ('فضّول وسرّ الحديقة', 'رحلة إلى مدينة الطاقة النظيفة')
+story_cover = label in ('سامي وظِلّه الصغير', 'ريم وأثر الكتاب الضائع')
 visible = []
 title_only_dumps = 0
 for attempt in range(15):
@@ -132,26 +132,24 @@ adb shell am start -W -n "$activity"
 find_label 'الحكايات' no
 adb exec-out screencap -p > build/play-device/android-home-safe-bars.png
 find_label 'الحكايات' yes
-adb shell input swipe 385 1090 385 490 300
-find_label 'فضّول وسرّ الحديقة' yes
-find_label '1/9' no
+find_label 'سامي وظِلّه الصغير' yes
+find_label '1/5' no
 find_label 'التالي' yes
-find_label '2/9' no
+find_label '2/5' no
 find_label 'تكبير الصورة' yes
 find_label 'إغلاق' no
 find_label 'التالي' yes
-find_label '3/9' no
-find_label 'أخرج عدسته المكبّرة وفحص التربة' no
+find_label 'تحت شجرة كبيرة' no
+find_label '3/5' no
 adb exec-out screencap -p > build/play-device/android-zoom-reader.png
 find_label 'إغلاق' yes
-adb exec-out screencap -p > build/play-device/android-offline-garden.png
+adb exec-out screencap -p > build/play-device/android-offline-shadow-story.png
 find_label 'كل القصص' yes
-adb shell input swipe 385 1090 385 490 300
-find_label 'رحلة إلى مدينة الطاقة النظيفة' yes
-find_label '1/8' no
+find_label 'ريم وأثر الكتاب الضائع' yes
+find_label '1/5' no
 find_label 'التالي' yes
-find_label '2/8' no
-adb exec-out screencap -p > build/play-device/android-offline-clean-energy.png
+find_label '2/5' no
+adb exec-out screencap -p > build/play-device/android-offline-library-story.png
 echo "PASS Android $version opens and turns pages in both new stories in airplane mode."
 
 adb shell am force-stop "$package"
@@ -164,6 +162,9 @@ find_label 'تصفح أوراق العمل' yes
 find_label 'افتح ورقة العمل: رحلتي الأولى مع الحروف العربية' yes
 find_label 'صفحة 1' no
 adb exec-out screencap -p > build/play-device/android-offline-pdf.png
+find_label 'رجوع إلى التطبيق' yes
+find_label 'افتح ورقة العمل: صيّاد الأشكال' yes
+find_label 'صفحة 1' no
 find_label 'رجوع إلى التطبيق' yes
 find_label 'العودة إلى المزيد' yes
 find_label 'الصوت واسم اللاعب' yes

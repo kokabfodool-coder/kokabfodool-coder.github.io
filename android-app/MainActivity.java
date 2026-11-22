@@ -58,7 +58,11 @@ public class MainActivity extends Activity {
                 if(req.isForMainFrame() && "https".equals(u.getScheme()) && host.equals(u.getHost()) && "/play-app/external/".equals(p)){openExternalLink(u.getQueryParameter("url"));return true;}
                 if ("https".equals(u.getScheme()) && host.equals(u.getHost())) {
                     if (req.isForMainFrame() && WorksheetActivity.validPath(p)) {
-                        startActivity(new Intent(MainActivity.this, WorksheetActivity.class).putExtra("worksheet", p));
+                        String source = view.getUrl();
+                        String sourcePath = source == null ? null : Uri.parse(source).getPath();
+                        boolean arabic = sourcePath == null || !sourcePath.startsWith("/en/");
+                        startActivity(new Intent(MainActivity.this, WorksheetActivity.class)
+                                .putExtra("worksheet", p).putExtra("arabic", arabic));
                         return true;
                     }
                     if (allowedPage(p)) return false;

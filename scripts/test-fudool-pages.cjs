@@ -99,6 +99,10 @@ const root='http://127.0.0.1:8714';
   ["robo-block-tower","روبو وبرج المكعبات","5",7,[1,0,1]],
   ["fudool-sealed-letter","فضّول والرسالة المغلقة","7",9,[0,1,0,2,1]],
   ["mishaal-mysterious-news","مشعال والخبر الغامض","9",9,[0,1,2,1,0,2]],
+  ['sami-and-his-little-shadow','سامي وظِلّه الصغير','3',5,[0]],
+  ['hala-and-the-paper-bridge','هلا وجسر الورق','5',5,[1,2]],
+  ['reem-and-the-library-trail','ريم وأثر الكتاب الضائع','7',5,[2,0,1]],
+  ['the-signal-above-the-mangroves','الإشارة فوق أشجار القُرْم','9',5,[0,1,2]],
  ]){
   const context=await browser.newContext({viewport:{width:390,height:844}});
   const page=await context.newPage();

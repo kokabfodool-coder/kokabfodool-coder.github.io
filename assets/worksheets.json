@@ -1,6 +1,6 @@
 {
- "version": "6.10.0",
- "count": 43,
+ "version": "6.10.4",
+ "count": 59,
  "worksheets": [
   {
    "id": "arabic-letters-kit",
@@ -132,6 +132,86 @@
    "pageEn": "/en/grown-ups/practice/english-numbers/",
    "noteAr": "11 ورقة",
    "noteEn": "11 sheets"
+  },
+  {
+   "id": "age-3-4-01",
+   "titleAr": "صيّاد الأشكال",
+   "titleEn": "Shape Finder",
+   "ageMin": 3,
+   "ageMax": 4,
+   "ages": [
+    3,
+    4
+   ],
+   "skillAr": "الأشكال",
+   "skillEn": "Shapes",
+   "pdfAr": "/print/worksheets/3-4/worksheet-01.pdf",
+   "pdfEn": "/print/worksheets/3-4/worksheet-01.pdf",
+   "pageAr": null,
+   "pageEn": null,
+   "questions": 4,
+   "noteAr": "4 أنشطة · A4",
+   "noteEn": "4 tasks · A4"
+  },
+  {
+   "id": "age-3-4-02",
+   "titleAr": "أعدّ وألوّن",
+   "titleEn": "Count and Colour",
+   "ageMin": 3,
+   "ageMax": 4,
+   "ages": [
+    3,
+    4
+   ],
+   "skillAr": "الأعداد الأولى",
+   "skillEn": "Early counting",
+   "pdfAr": "/print/worksheets/3-4/worksheet-02.pdf",
+   "pdfEn": "/print/worksheets/3-4/worksheet-02.pdf",
+   "pageAr": null,
+   "pageEn": null,
+   "questions": 4,
+   "noteAr": "4 أنشطة · A4",
+   "noteEn": "4 tasks · A4"
+  },
+  {
+   "id": "age-3-4-03",
+   "titleAr": "ما الشكل التالي؟",
+   "titleEn": "What Comes Next?",
+   "ageMin": 3,
+   "ageMax": 4,
+   "ages": [
+    3,
+    4
+   ],
+   "skillAr": "الأنماط",
+   "skillEn": "Patterns",
+   "pdfAr": "/print/worksheets/3-4/worksheet-03.pdf",
+   "pdfEn": "/print/worksheets/3-4/worksheet-03.pdf",
+   "pageAr": null,
+   "pageEn": null,
+   "questions": 4,
+   "noteAr": "4 أنشطة · A4",
+   "noteEn": "4 tasks · A4"
+  },
+  {
+   "id": "age-3-4-04",
+   "titleAr": "أقارن بين المجموعات",
+   "titleEn": "Compare the Groups",
+   "ageMin": 3,
+   "ageMax": 4,
+   "ages": [
+    3,
+    4
+   ],
+   "skillAr": "المقارنة",
+   "skillEn": "Comparing",
+   "pdfAr": "/print/worksheets/3-4/worksheet-04.pdf",
+   "pdfEn": "/print/worksheets/3-4/worksheet-04.pdf",
+   "pageAr": null,
+   "pageEn": null,
+   "questions": 4,
+   "noteAr": "4 أنشطة · A4",
+   "noteEn": "4 tasks · A4"
   },
   {
    "id": "age-5-6-01",
@@ -852,6 +932,246 @@
    "questions": 4,
    "noteAr": "4 أسئلة · A4",
    "noteEn": "4 questions · A4"
+  },
+  {
+   "id": "age-5-6-13",
+   "titleAr": "الحرف في أول الكلمة",
+   "titleEn": "First Sound in a Word",
+   "ageMin": 5,
+   "ageMax": 6,
+   "ages": [
+    5,
+    6
+   ],
+   "skillAr": "اللغة العربية",
+   "skillEn": "Arabic literacy",
+   "pdfAr": "/print/worksheets/5-6/worksheet-13.pdf",
+   "pdfEn": "/print/worksheets/5-6/worksheet-13.pdf",
+   "pageAr": null,
+   "pageEn": null,
+   "questions": 4,
+   "noteAr": "4 أنشطة · A4",
+   "noteEn": "4 tasks · A4"
+  },
+  {
+   "id": "age-5-6-14",
+   "titleAr": "أكمل مجموع 10",
+   "titleEn": "Make 10",
+   "ageMin": 5,
+   "ageMax": 6,
+   "ages": [
+    5,
+    6
+   ],
+   "skillAr": "الرياضيات",
+   "skillEn": "Maths",
+   "pdfAr": "/print/worksheets/5-6/worksheet-14.pdf",
+   "pdfEn": "/print/worksheets/5-6/worksheet-14.pdf",
+   "pageAr": null,
+   "pageEn": null,
+   "questions": 4,
+   "noteAr": "4 أنشطة · A4",
+   "noteEn": "4 tasks · A4"
+  },
+  {
+   "id": "age-5-6-15",
+   "titleAr": "أرتّب خطوات الزرع",
+   "titleEn": "Put Planting Steps in Order",
+   "ageMin": 5,
+   "ageMax": 6,
+   "ages": [
+    5,
+    6
+   ],
+   "skillAr": "العلوم والتسلسل",
+   "skillEn": "Science and sequencing",
+   "pdfAr": "/print/worksheets/5-6/worksheet-15.pdf",
+   "pdfEn": "/print/worksheets/5-6/worksheet-15.pdf",
+   "pageAr": null,
+   "pageEn": null,
+   "questions": 4,
+   "noteAr": "4 أنشطة · A4",
+   "noteEn": "4 tasks · A4"
+  },
+  {
+   "id": "age-5-6-16",
+   "titleAr": "أقيس بالوحدات",
+   "titleEn": "Measure with Units",
+   "ageMin": 5,
+   "ageMax": 6,
+   "ages": [
+    5,
+    6
+   ],
+   "skillAr": "القياس",
+   "skillEn": "Measurement",
+   "pdfAr": "/print/worksheets/5-6/worksheet-16.pdf",
+   "pdfEn": "/print/worksheets/5-6/worksheet-16.pdf",
+   "pageAr": null,
+   "pageEn": null,
+   "questions": 4,
+   "noteAr": "4 أنشطة · A4",
+   "noteEn": "4 tasks · A4"
+  },
+  {
+   "id": "age-7-8-13",
+   "titleAr": "محقق القراءة",
+   "titleEn": "Reading Detective",
+   "ageMin": 7,
+   "ageMax": 8,
+   "ages": [
+    7,
+    8
+   ],
+   "skillAr": "فهم النص",
+   "skillEn": "Reading comprehension",
+   "pdfAr": "/print/worksheets/7-8/worksheet-13.pdf",
+   "pdfEn": "/print/worksheets/7-8/worksheet-13.pdf",
+   "pageAr": null,
+   "pageEn": null,
+   "questions": 4,
+   "noteAr": "4 أنشطة · A4",
+   "noteEn": "4 tasks · A4"
+  },
+  {
+   "id": "age-7-8-14",
+   "titleAr": "أتسوّق وأحسب الباقي",
+   "titleEn": "Shopping and Change",
+   "ageMin": 7,
+   "ageMax": 8,
+   "ages": [
+    7,
+    8
+   ],
+   "skillAr": "الحساب",
+   "skillEn": "Arithmetic",
+   "pdfAr": "/print/worksheets/7-8/worksheet-14.pdf",
+   "pdfEn": "/print/worksheets/7-8/worksheet-14.pdf",
+   "pageAr": null,
+   "pageEn": null,
+   "questions": 4,
+   "noteAr": "4 أنشطة · A4",
+   "noteEn": "4 tasks · A4"
+  },
+  {
+   "id": "age-7-8-15",
+   "titleAr": "أقرأ جدول الطقس",
+   "titleEn": "Read a Weather Chart",
+   "ageMin": 7,
+   "ageMax": 8,
+   "ages": [
+    7,
+    8
+   ],
+   "skillAr": "قراءة البيانات",
+   "skillEn": "Data literacy",
+   "pdfAr": "/print/worksheets/7-8/worksheet-15.pdf",
+   "pdfEn": "/print/worksheets/7-8/worksheet-15.pdf",
+   "pageAr": null,
+   "pageEn": null,
+   "questions": 4,
+   "noteAr": "4 أنشطة · A4",
+   "noteEn": "4 tasks · A4"
+  },
+  {
+   "id": "age-7-8-16",
+   "titleAr": "أجزاء الكل",
+   "titleEn": "Parts of a Whole",
+   "ageMin": 7,
+   "ageMax": 8,
+   "ages": [
+    7,
+    8
+   ],
+   "skillAr": "الكسور",
+   "skillEn": "Fractions",
+   "pdfAr": "/print/worksheets/7-8/worksheet-16.pdf",
+   "pdfEn": "/print/worksheets/7-8/worksheet-16.pdf",
+   "pageAr": null,
+   "pageEn": null,
+   "questions": 4,
+   "noteAr": "4 أنشطة · A4",
+   "noteEn": "4 tasks · A4"
+  },
+  {
+   "id": "age-9-10-13",
+   "titleAr": "أحلّل فرضية",
+   "titleEn": "Test a Hypothesis",
+   "ageMin": 9,
+   "ageMax": 10,
+   "ages": [
+    9,
+    10
+   ],
+   "skillAr": "التفكير العلمي",
+   "skillEn": "Scientific reasoning",
+   "pdfAr": "/print/worksheets/9-10/worksheet-13.pdf",
+   "pdfEn": "/print/worksheets/9-10/worksheet-13.pdf",
+   "pageAr": null,
+   "pageEn": null,
+   "questions": 4,
+   "noteAr": "4 أنشطة · A4",
+   "noteEn": "4 tasks · A4"
+  },
+  {
+   "id": "age-9-10-14",
+   "titleAr": "ميزانيتي الصغيرة",
+   "titleEn": "My Small Budget",
+   "ageMin": 9,
+   "ageMax": 10,
+   "ages": [
+    9,
+    10
+   ],
+   "skillAr": "الرياضيات",
+   "skillEn": "Maths",
+   "pdfAr": "/print/worksheets/9-10/worksheet-14.pdf",
+   "pdfEn": "/print/worksheets/9-10/worksheet-14.pdf",
+   "pageAr": null,
+   "pageEn": null,
+   "questions": 4,
+   "noteAr": "4 أنشطة · A4",
+   "noteEn": "4 tasks · A4"
+  },
+  {
+   "id": "age-9-10-15",
+   "titleAr": "أصمّم لعبة ورقية",
+   "titleEn": "Design a Paper Game",
+   "ageMin": 9,
+   "ageMax": 10,
+   "ages": [
+    9,
+    10
+   ],
+   "skillAr": "التصميم والتفكير المنطقي",
+   "skillEn": "Design and logic",
+   "pdfAr": "/print/worksheets/9-10/worksheet-15.pdf",
+   "pdfEn": "/print/worksheets/9-10/worksheet-15.pdf",
+   "pageAr": null,
+   "pageEn": null,
+   "questions": 4,
+   "noteAr": "4 أنشطة · A4",
+   "noteEn": "4 tasks · A4"
+  },
+  {
+   "id": "age-9-10-16",
+   "titleAr": "من السبب إلى النتيجة",
+   "titleEn": "Cause and Effect",
+   "ageMin": 9,
+   "ageMax": 10,
+   "ages": [
+    9,
+    10
+   ],
+   "skillAr": "القراءة والكتابة",
+   "skillEn": "Reading and writing",
+   "pdfAr": "/print/worksheets/9-10/worksheet-16.pdf",
+   "pdfEn": "/print/worksheets/9-10/worksheet-16.pdf",
+   "pageAr": null,
+   "pageEn": null,
+   "questions": 4,
+   "noteAr": "4 أنشطة · A4",
+   "noteEn": "4 tasks · A4"
   }
  ]
 }

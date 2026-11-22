@@ -44,7 +44,7 @@ if(worksheetRoot){
  document.querySelectorAll('[data-v5-open-worksheets]').forEach(b=>b.addEventListener('click',()=>location.hash='#v5-worksheets'));
  document.querySelectorAll('[data-worksheet-back]').forEach(b=>b.addEventListener('click',()=>location.hash='#v5-more'));
  let worksheets=[];
- const safePdf=/^\/print\/(?:worksheets\/(?:5-6|7-8|9-10)\/worksheet-\d{2}|(?:ar|en)\/(?:arabic-letter-sounds|arabic-letters|arabic-numbers|count-the-stars|english-abc-sheet|english-letters|english-numbers))\.pdf$/;
+ const safePdf=/^\/print\/(?:worksheets\/(?:3-4|5-6|7-8|9-10)\/worksheet-\d{2}|(?:ar|en)\/(?:arabic-letter-sounds|arabic-letters|arabic-numbers|count-the-stars|english-abc-sheet|english-letters|english-numbers))\.pdf$/;
  function renderWorksheets(){
   const age=Number(worksheetAge.value)||0;worksheetRoot.replaceChildren();
   const matches=worksheets.filter(w=>safePdf.test(ar?w.pdfAr:w.pdfEn)&&(!age||age>=w.ageMin&&age<=w.ageMax));

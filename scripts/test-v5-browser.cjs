@@ -150,9 +150,23 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
     await page.locator('.v5-nav a[href="#v5-more"]').click();
    }
    await page.goto(home + '#v5-pro');
+   assert.equal(await page.locator('.v5-pro-view .pro-card').count(), 3);
+   assert.equal(await page.locator('.v5-pro-view .pro-card').last().locator('.pro-sample').getAttribute('href'), prefix + '/games/code-robo/');
    await page.locator('.v5-pro-view .pro-cta').first().click();
    await page.waitForURL('**/play-app/external/?url=*');
    assert.equal(new URL(opened).origin + new URL(opened).pathname, 'https://wa.me/971505918238');
+
+   await page.goto(home + '#v5-worksheets');
+   for (const age of ['3','5','7','9']) {
+    await page.locator('[data-worksheet-age]').selectOption(age);
+    const first = age === '3' ? 1 : 13;
+    for (let number = first; number < first + 4; number++) {
+     const uri = '/print/worksheets/' + age + '-' + (Number(age) + 1) + '/worksheet-' + String(number).padStart(2,'0') + '.pdf';
+     await page.locator('[data-worksheet-library] a[href="' + uri + '"]').waitFor();
+     const response = await page.request.get(origin + uri);
+     assert(response.ok() && (await response.body()).subarray(0,5).toString() === '%PDF-');
+    }
+   }
 
    // A completed level must expose its stars and let a small Android viewport reach all actions.
    await page.setViewportSize({width: 390, height: 660});
