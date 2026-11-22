@@ -51,12 +51,16 @@ def normalize(text):
                    if not unicodedata.combining(c) and unicodedata.category(c) != 'Cf').strip()
 
 needle = normalize(label)
+accepted_labels = [needle]
+if node_class == 'android.widget.EditText' and label == 'اسم اللاعب':
+    accepted_labels.append(normalize('مثل النجم الصغير'))
 navigation = label in ('الألعاب', 'المزيد', 'الحكايات', 'الرئيسية')
 size = subprocess.check_output(['adb','shell','wm','size'], text=True)
 width, height = map(int, re.findall(r'(\d+)x(\d+)', size)[-1])
 midpoint = str(width // 2)
 story_cover = label in ('فضّول وسرّ الحديقة', 'رحلة إلى مدينة الطاقة النظيفة')
 visible = []
+title_only_dumps = 0
 for attempt in range(15):
     dump = subprocess.run(['adb','shell','uiautomator','dump','/sdcard/fudool-ui.xml'], capture_output=True, timeout=25)
     if dump.returncode != 0:
@@ -73,14 +77,12 @@ for attempt in range(15):
                 x1,y1,x2,y2 = map(int,re.findall(r'\d+',node.get('bounds','')))
                 if x2 <= x1 or y2 <= y1:
                     continue
-                captions = [normalize(node.get(key, '')) for key in ('text', 'content-desc')]
+                captions = [normalize(node.get(key, '')) for key in ('text', 'content-desc', 'hint')]
                 visible.extend(text for text in captions if text)
-                exact = needle in captions
-                if node_class:
-                    if node.get('class') != node_class or node.get('enabled') != 'true':
-                        continue
-                    exact = True
-                elif not any(needle in text for text in captions):
+                if node_class and (node.get('class') != node_class or node.get('enabled') != 'true'):
+                    continue
+                exact = any(text in accepted_labels for text in captions)
+                if not any(term in text for term in accepted_labels for text in captions):
                     continue
                 clickable = node.get('clickable') == 'true'
                 if tap == 'yes' and not (exact or clickable):
@@ -100,6 +102,14 @@ for attempt in range(15):
                     subprocess.run(['adb','shell','input','tap',*point],check=True)
                 print('Android UI:', label, 'tapped' if tap == 'yes' else 'visible', flush=True)
                 sys.exit(0)
+            # WebView can momentarily expose only the document title to UI Automator.
+            # Move keyboard focus into the document and keep testing the real controls.
+            if len(visible) == 1 and len(list(root.iter('node'))) <= 6:
+                title_only_dumps += 1
+                if title_only_dumps in (2, 5):
+                    subprocess.run(['adb','shell','input','keyevent','KEYCODE_TAB'],check=True)
+                time.sleep(.5)
+                continue
             if behind_navigation:
                 subprocess.run(['adb','shell','input','swipe',midpoint,str(height-154),midpoint,str(height-354),'280'],check=True)
                 time.sleep(.5)
@@ -154,13 +164,12 @@ adb exec-out screencap -p > build/play-device/android-offline-pdf.png
 find_label 'رجوع إلى التطبيق' yes
 find_label 'العودة إلى المزيد' yes
 find_label 'الصوت واسم اللاعب' yes
-find_label 'اسم اللاعب' no
-find_label 'مستويات الصوت' no
-find_label 'حقل اسم اللاعب' yes android.widget.EditText
+find_label 'اسم اللاعب' yes android.widget.EditText
 adb shell input text 'Fudool'
 find_label 'حفظ الاسم' yes
 find_label 'حُفظ اسم اللاعب' no
 adb exec-out screencap -p > build/play-device/android-offline-settings.png
+find_label 'مستويات الصوت' no
 find_label 'الرئيسية' yes
 find_label 'أهلًا، Fudool!' no
 find_label 'الألعاب' yes
