@@ -12,6 +12,7 @@ const root='http://127.0.0.1:8714';
  const browser=await chromium.launch({executablePath:process.env.FUDOOL_CHROMIUM});
  try {
  const route='/stories/robo-little-seed/';
+ const {stories}=require('../stories/catalog.json');
  for(const width of [320,390,800,1280]){
   const context=await browser.newContext({viewport:{width,height:900}});
   const page=await context.newPage();
@@ -25,7 +26,7 @@ const root='http://127.0.0.1:8714';
   assert.equal(await page.getByRole('link',{name:'روبو والبذرة الصغيرة'}).count(),0);
   await page.locator('[name="age"]').selectOption('7');
   await page.getByRole('link',{name:'فضّول وسرّ الحديقة'}).waitFor();
-  assert.equal(await page.locator('.pages-card').count(),3);
+  assert.equal(await page.locator('.pages-card').count(),stories.filter(story=>story.ageMin===7).length);
   await page.locator('[name="age"]').selectOption('5');
   await page.locator('.pages-card').filter({has:page.getByRole('link',{name:'روبو والبذرة الصغيرة',exact:true})}).getByRole('button',{name:'المفضلة'}).click();
   await page.locator('[name="status"]').selectOption('favorite');
@@ -92,22 +93,13 @@ const root='http://127.0.0.1:8714';
   await context.close();
   console.log('PASS reader, filters, progress, quiz, awards and offline width='+width);
  }
- for(const [id, title, age, total, answers] of [
-  ['fudool-garden-mystery','فضّول وسرّ الحديقة','7',9,[0,1,2,0,1]],
-  ['clean-energy-city','رحلة إلى مدينة الطاقة النظيفة','9',8,[0,1,2,0,1,2]],
-  ["lumaa-colorful-breakfast","لمعة ووجبة الألوان","3",6,[0,1,1]],
-  ["robo-block-tower","روبو وبرج المكعبات","5",7,[1,0,1]],
-  ["fudool-sealed-letter","فضّول والرسالة المغلقة","7",9,[0,1,0,2,1]],
-  ["mishaal-mysterious-news","مشعال والخبر الغامض","9",9,[0,1,2,1,0,2]],
-  ['sami-and-his-little-shadow','سامي وظِلّه الصغير','3',5,[0]],
-  ['hala-and-the-paper-bridge','هلا وجسر الورق','5',5,[1,2]],
-  ['reem-and-the-library-trail','ريم وأثر الكتاب الضائع','7',5,[2,0,1]],
-  ['the-signal-above-the-mangroves','الإشارة فوق أشجار القُرْم','9',5,[0,1,2]],
- ]){
+ for(const {id,titleAr:title,ageMin,pageCount:total} of stories){
+  const {questions}=require('../stories/'+id+'/story.json');
+  const answers=questions.map(question=>question.correctIndex);
   const context=await browser.newContext({viewport:{width:390,height:844}});
   const page=await context.newPage();
   await page.goto(root+'/stories/');
-  await page.locator('[name="age"]').selectOption(age);
+  await page.locator('[name="age"]').selectOption(String(ageMin));
   await page.getByRole('link',{name:title}).click();
   assert.equal(new URL(page.url()).pathname,'/stories/'+id+'/');
   for(let i=1;i<=total;i++){
@@ -130,7 +122,7 @@ const root='http://127.0.0.1:8714';
   console.log('PASS all pages, comprehension quiz and offline reread: '+id);
  }
  const reader = await browser.newPage({viewport:{width:320,height:570}});
- for(const {id,pageCount} of require('../stories/catalog.json').stories){
+ for(const {id,pageCount} of stories){
   const story = require('../stories/'+id+'/story.json');
   assert.equal(story.pages.length,pageCount);
   await reader.goto(root+'/play-app/');
