@@ -170,7 +170,7 @@ find_label 'رجوع إلى التطبيق' yes
 find_label 'افتح ورقة العمل: صيّاد الأشكال' yes
 find_label 'صفحة 1' no
 find_label 'رجوع إلى التطبيق' yes
-find_label 'العودة إلى المزيد' yes
+find_label 'المزيد' yes
 find_label 'الصوت واسم اللاعب' yes
 find_label 'اسم اللاعب' yes android.widget.EditText
 adb shell input text 'Fudool'
