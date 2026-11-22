@@ -409,7 +409,7 @@ export function bindJourney({id, levels}, board, renderRound) {
       badges.append(badgeArt, document.createTextNode(unlocked[2]));
     }
     nextLevel.hidden = atEnd;
-    show(result, false);
+    show(result, !app);
     const endNote = atEnd && !allComplete
       ? tr('اختر مسارًا أو مستوى من الخريطة لتواصل اللعب.', 'Choose a path or level on the map to keep playing.')
       : undefined;
@@ -417,10 +417,10 @@ export function bindJourney({id, levels}, board, renderRound) {
       score: score(), best, total, badges: starBadges, rounds: levels[level].rounds.length,
       last: allComplete && atEnd, pathComplete, endNote, previousTotal,
     });
-    result.scrollTop = 0;
-    const title = result.querySelector('h2');
-    title.focus({preventScroll: true});
-    if (!app) result.scrollIntoView({block: 'start'});
+    if (app) {
+      result.scrollTop = 0;
+      result.querySelector('h2').focus({preventScroll: true});
+    }
   }
 
   document.querySelectorAll('[data-level-menu]').forEach((button) => button.addEventListener('click', () => showMap()));
