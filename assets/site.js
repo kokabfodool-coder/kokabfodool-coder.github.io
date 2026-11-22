@@ -110,3 +110,64 @@ document.addEventListener('click', (event) => {
 if (document.querySelector('.game-shell, .games-grid')) {
   import('/assets/world-art.js?v=1').then(({mountWorlds}) => mountWorlds());
 }
+
+// Share the app's six destinations and labels with the public website.
+if (!document.body.classList.contains('v5-body')) {
+  const english = document.documentElement.lang.toLowerCase().startsWith('en');
+  const prefix = english ? '/en' : '';
+  const labels = english
+    ? ['Home', 'Games', 'Episodes', 'Stories', 'Achievements', 'More']
+    : ['الرئيسية', 'الألعاب', 'الحلقات', 'الحكايات', 'الإنجازات', 'المزيد'];
+  const destinations = [
+    `${prefix}/`, `${prefix}/games/`, `${prefix}/episodes/`,
+    english ? '/en/play-app/#v5-pages' : '/stories/',
+    `${prefix}/play-app/#v5-achievements`, `${prefix}/play-app/#v5-more`,
+  ];
+  const icons = [
+    '<svg viewBox="0 0 120 120" aria-hidden="true"><use href="/assets/fudool-premium-art.svg#home"></use></svg>',
+    '<svg viewBox="0 0 120 120" aria-hidden="true"><use href="/assets/fudool-premium-art.svg#gamepad"></use></svg>',
+    '<svg viewBox="0 0 120 120" aria-hidden="true"><use href="/assets/fudool-premium-art.svg#series"></use></svg>',
+    '<img src="/assets/fudool-pages-cover.webp" alt="" width="30" height="30">',
+    '<svg viewBox="0 0 120 120" aria-hidden="true"><use href="/assets/fudool-premium-art.svg#medal"></use></svg>',
+    '<svg viewBox="0 0 120 120" aria-hidden="true"><use href="/assets/fudool-premium-art.svg#globe"></use></svg>',
+  ];
+  const current = location.pathname.replace(/^\/en(?=\/)/, '') || '/';
+  const currentView = location.hash === '#v5-achievements' ? 4
+    : location.hash === '#v5-more' ? 5
+    : current.startsWith('/games/') ? 1
+    : current.startsWith('/episodes/') ? 2
+    : current.startsWith('/stories/') ? 3
+    : current === '/' ? 0 : -1;
+  const makeLinks = (parent, withIcons = false) => {
+    if (!parent) return;
+    parent.replaceChildren(...labels.map((label, index) => {
+      const link = document.createElement('a');
+      link.href = destinations[index];
+      link.innerHTML = `${withIcons ? icons[index] : ''}<span>${label}</span>`;
+      if (index === currentView) link.setAttribute('aria-current', 'page');
+      return link;
+    }));
+  };
+  makeLinks(document.querySelector('.desktop-nav'));
+  makeLinks(document.querySelector('.mobile-nav nav'));
+  const appNav = document.createElement('nav');
+  appNav.className = 'site-bottom-nav';
+  appNav.setAttribute('aria-label', english ? 'Main navigation' : 'التنقل الرئيسي');
+  makeLinks(appNav, true);
+  document.body.append(appNav);
+  document.documentElement.classList.add('has-site-app-nav');
+  const navStyles = document.createElement('link');
+  navStyles.rel = 'stylesheet';
+  navStyles.href = '/assets/site-mobile-nav.css?v=1';
+  document.head.append(navStyles);
+
+  if (!document.querySelector('.download-app-bubble')) {
+    const download = document.createElement('a');
+    download.className = 'download-app-bubble';
+    download.href = '/downloads/apps/kawkab-fudool.apk';
+    download.setAttribute('download', '');
+    download.setAttribute('aria-label', english ? 'Download the Kokab Fodool Android app' : 'تحميل تطبيق كوكب فضول لأجهزة Android');
+    download.innerHTML = `<span aria-hidden="true">↓</span> ${english ? 'Download app' : 'تحميل التطبيق'}`;
+    document.body.append(download);
+  }
+}

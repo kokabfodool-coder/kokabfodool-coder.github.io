@@ -1,0 +1,96 @@
+/* Compact, legible mobile layout and app-matched site navigation. */
+.site-bottom-nav { display: none; }
+@media (max-width: 799px) {
+  html.has-site-app-nav { scroll-padding-block-end: 92px; }
+  html.has-site-app-nav body { padding-block-end: calc(82px + env(safe-area-inset-bottom, 0px)); }
+  .site-bottom-nav {
+    position: fixed; z-index: 30; inset-inline: 7px; inset-block-end: calc(6px + env(safe-area-inset-bottom, 0px));
+    display: flex; align-items: stretch; justify-content: space-between; gap: 2px;
+    max-width: 680px; margin-inline: auto; padding: 5px;
+    border: 1px solid #e2d5f7; border-radius: 22px;
+    background: linear-gradient(135deg, #ffffffed, #eee6fff5);
+    box-shadow: 0 6px 24px #4b26943b, 0 2px 0 #d4c3f0; backdrop-filter: blur(14px);
+  }
+  .site-bottom-nav a {
+    display: flex; flex: 1 1 0; min-width: 0; min-height: 57px; flex-direction: column;
+    align-items: center; justify-content: center; gap: 1px; padding: 3px 0;
+    border-radius: 16px; color: #50337c; font-size: clamp(.62rem, 2.55vw, .72rem);
+    font-weight: 900; line-height: 1.25; text-align: center; white-space: nowrap;
+  }
+  .site-bottom-nav a svg, .site-bottom-nav a img { display: block; flex: none; width: 25px; height: 25px; object-fit: contain; }
+  .site-bottom-nav a[aria-current="page"] { color: #fff; background: linear-gradient(160deg, #c79bff, #8947d8 54%, #5c24a3); border: 1px solid #ffe3a3; box-shadow: 0 2px 0 #ac83db; }
+  .site-bottom-nav a:focus-visible { outline-offset: -2px; }
+  body:not(.v5-body) .mobile-nav { display: none !important; }
+  body:not(.v5-body) .download-app-bubble,
+  .manus-home-review .download-app-bubble {
+    position: fixed !important; inset-inline-end: auto !important; inset-inline-start: 10px !important;
+    inset-block-end: calc(82px + env(safe-area-inset-bottom, 0px)) !important;
+    width: 42px; height: 42px; min-block-size: 42px; justify-content: center;
+    padding: 0; border-radius: 50%; font-size: 0;
+    box-shadow: 0 4px 14px #2c1d6250;
+  }
+  body:not(.v5-body) .download-app-bubble span,
+  .manus-home-review .download-app-bubble span { width: 1.55rem; height: 1.55rem; font-size: 1.2rem; }
+  .manus-home-review .home-games .activity-grid.games-grid,
+  .home-games .activity-grid.games-grid,
+  .games-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: .55rem !important; }
+  .home-games .activity-card, .games-grid .activity-card {
+    min-width: 0; gap: .35rem; padding: .42rem !important; border-radius: 17px;
+  }
+  .home-games .activity-card h3, .games-grid .activity-card h3 { font-size: clamp(.82rem, 3.4vw, .96rem); line-height: 1.5; }
+  .home-games .activity-card p, .games-grid .activity-card p {
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+    font-size: clamp(.73rem, 2.9vw, .82rem); line-height: 1.55;
+  }
+  .home-games .activity-symbol, .games-grid .activity-symbol { min-inline-size: 38px; block-size: 38px; padding-inline: .18rem; border-radius: 12px; font-size: .95rem; }
+  .home-games .round-arrow, .games-grid .round-arrow { width: 25px; height: 25px; font-size: .75rem; }
+  .game-visual-card .game-visual-cover { aspect-ratio: 2.65; border-radius: 12px; }
+  .game-visual-card h3 { font-size: clamp(.8rem, 3.35vw, .93rem); }
+  .game-visual-card p { font-size: .73rem; line-height: 1.5; }
+  .game-visual-card .game-card-copy { padding: .08rem .15rem .25rem; }
+  .home-games .premium-library-card, .manus-home-review .home-games .premium-library-card {
+    grid-template-columns: minmax(0, 1fr) auto !important; grid-template-rows: auto auto !important;
+    align-items: start !important; gap: .3rem !important;
+  }
+  .home-games .premium-library-card > .fudool-world-cover,
+  .manus-home-review .home-games .premium-library-card > .fudool-world-cover {
+    grid-column: 1 / -1 !important; grid-row: 1 !important; aspect-ratio: 2.65 !important;
+    height: auto !important; min-height: 0 !important;
+  }
+  .home-games .premium-library-card > div,
+  .manus-home-review .home-games .premium-library-card > div {
+    grid-column: 1 !important; grid-row: 2 !important; min-width: 0 !important;
+    padding: .08rem .12rem .2rem !important;
+  }
+  .home-games .premium-library-card > .round-arrow,
+  .manus-home-review .home-games .premium-library-card > .round-arrow {
+    grid-column: 2 !important; grid-row: 2 !important; align-self: end !important;
+    width: 25px !important; height: 25px !important; min-width: 25px !important; min-height: 25px !important;
+    margin: 0 .12rem .2rem !important;
+  }
+  .home-games .premium-library-card > .activity-symbol,
+  .manus-home-review .home-games .premium-library-card > .activity-symbol { display: none !important; }
+  .game-visual-meta { gap: .2rem; font-size: .67rem; }
+  .game-visual-meta span { padding: .1rem .38rem; }
+  .premium-library-card { padding: .4rem !important; }
+  .wrap { width: min(100% - 1.25rem, 1200px); }
+  .section { padding-block: 1.6rem; }
+  .section + .section:not(.section-wash) { padding-block-start: 1.35rem; }
+  .page-hero { gap: .7rem; padding: .85rem; border-radius: 20px; }
+  .simple-page, .game-shell, .worksheet-shell { min-height: 0; padding-block-end: 1.5rem; }
+  .site-foot { padding-block-end: 1.25rem; }
+}
+@media (min-width: 800px) {
+  .desktop-nav { display: flex !important; gap: 0; font-size: .79rem; }
+  .desktop-nav a { min-block-size: 42px; padding-inline: clamp(.42rem, .8vw, .72rem); }
+  .mobile-nav { display: none !important; }
+  .download-app-bubble { inset-block-end: 1rem !important; }
+  .manus-home-review .download-app-bubble { position: fixed !important; }
+}
+@media (max-width: 359px) {
+  .site-bottom-nav { inset-inline: 4px; gap: 0; padding: 4px; }
+  .site-bottom-nav a { min-height: 54px; font-size: .59rem; }
+  .site-bottom-nav a svg, .site-bottom-nav a img { width: 22px; height: 22px; }
+}
+@media (prefers-reduced-motion: reduce) { .site-bottom-nav a { transition: none !important; } }
+@media print { .site-bottom-nav { display: none !important; } }
