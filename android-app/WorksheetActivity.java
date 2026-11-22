@@ -30,7 +30,8 @@ public final class WorksheetActivity extends Activity {
     private File temporary;
 
     static boolean validPath(String path) {
-        return path != null && path.matches("/print/(ar|en)/(arabic-letter-sounds|arabic-letters|arabic-numbers|count-the-stars|english-abc-sheet|english-letters|english-numbers)\\.pdf");
+        return path != null && (path.matches("/print/(ar|en)/(arabic-letter-sounds|arabic-letters|arabic-numbers|count-the-stars|english-abc-sheet|english-letters|english-numbers)\\.pdf")
+                || path.matches("/print/worksheets/(5-6|7-8|9-10)/worksheet-\\d{2}\\.pdf"));
     }
 
     @Override protected void onCreate(Bundle state) {

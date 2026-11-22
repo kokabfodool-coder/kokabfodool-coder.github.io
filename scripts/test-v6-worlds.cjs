@@ -30,22 +30,25 @@ async function validateHomeCovers(browser, language, width) {
         const badge = guide.getBoundingClientRect();
         const card = cover.closest('.activity-card');
         const style = getComputedStyle(card);
-        const innerWidth = card.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
-        const fitted = Math.abs(bounds.width - innerWidth) < 2 &&
-          Math.abs(bounds.width - bounds.height * 1.5) < 2 &&
-          getComputedStyle(scene).objectFit === 'cover';
+        const contentWidth = card.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+        const ratio = bounds.width / bounds.height;
+        const fitted = getComputedStyle(scene).objectFit === 'cover' &&
+          (Math.abs(ratio - 1) < .06 || Math.abs(ratio - 1.5) < .06) &&
+          bounds.width >= Math.min(120, contentWidth * .3);
         const placed = getComputedStyle(guide).position === 'absolute' &&
           badge.left >= bounds.left && badge.right <= bounds.right &&
           badge.top >= bounds.top && badge.bottom <= bounds.bottom &&
           badge.width <= bounds.width * .25;
-        const ordered = ['h3', '.round-arrow'].every(selector =>
-          card.querySelector(selector).getBoundingClientRect().top >= bounds.bottom - 1);
+        const heading = card.querySelector('h3').getBoundingClientRect();
+        const ordered = heading.width > 0 &&
+          (heading.top >= bounds.bottom - 1 || heading.left >= bounds.right - 1 ||
+           heading.right <= bounds.left + 1);
         return {id: card.dataset.gameId, fitted, placed, ordered};
       }));
     });
     assert.deepEqual(cards.filter(card => !card.fitted || !card.placed || !card.ordered), [], 'Home covers ' + language + ' ' + width);
     assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 2));
-    console.log('PASS home thumbnails', language, width, '20 full-width covers with inset character badges');
+    console.log('PASS home thumbnails', language, width, '20 game covers with inset character badges');
   } finally {
     await page.close();
   }

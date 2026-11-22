@@ -2205,4 +2205,28 @@
 <url><loc>https://kokabfodool.com/stories/robo-block-tower/</loc></url>
 <url><loc>https://kokabfodool.com/stories/fudool-sealed-letter/</loc></url>
 <url><loc>https://kokabfodool.com/stories/mishaal-mysterious-news/</loc></url>
+  <url>
+    <loc>https://kokabfodool.com/stories/batboota-rain-drop/</loc>
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/stories/fox-friendship-lantern/</loc>
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/stories/layan-magic-clock/</loc>
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/stories/sunken-city-secrets/</loc>
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/grown-ups/worksheets/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/grown-ups/worksheets/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/grown-ups/worksheets/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/grown-ups/worksheets/" />
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/en/grown-ups/worksheets/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/grown-ups/worksheets/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/grown-ups/worksheets/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/grown-ups/worksheets/" />
+  </url>
 </urlset>

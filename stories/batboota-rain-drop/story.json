@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "id": "batboota-rain-drop",
+  "titleAr": "بطبوطة وقطرة المطر",
+  "titleEn": "Batboota and the Raindrop",
+  "description": "قصة قصيرة عن بطبوطة التي تخاف من قطرة المطر، ثم تكتشف أن المطر يسقي الأزهار ويصنع قوس قزح.",
+  "theme": "الطبيعة والمطر",
+  "characters": [
+    "بطبوطة"
+  ],
+  "educationalValue": "تقبّل الجديد وملاحظة الطبيعة، والفضول الإيجابي",
+  "readingMinutes": 2,
+  "ageMin": 3,
+  "ageMax": 4,
+  "pageCount": 6,
+  "cover": "cover.webp",
+  "pages": [
+    {
+      "number": 1,
+      "text": "كانت بطبوطة تلعب بين الأزهار.",
+      "image": "page-01.webp"
+    },
+    {
+      "number": 2,
+      "text": "سقطت قطرة مطر. خافت بطبوطة قليلًا.",
+      "image": "page-02.webp"
+    },
+    {
+      "number": 3,
+      "text": "اختبأت تحت ورقة خضراء كبيرة.",
+      "image": "page-03.webp"
+    },
+    {
+      "number": 4,
+      "text": "رأت الأزهار تشرب الماء، فابتسمت.",
+      "image": "page-04.webp"
+    },
+    {
+      "number": 5,
+      "text": "خرجت وقفزت في بركة صغيرة. يا للمرح!",
+      "image": "page-05.webp"
+    },
+    {
+      "number": 6,
+      "text": "ظهر قوس قزح. قالت بطبوطة: أحب المطر!",
+      "image": "page-06.webp"
+    }
+  ],
+  "questions": [
+    {
+      "question": "ماذا سقطت من السماء؟",
+      "options": [
+        "قطرة مطر",
+        "ورقة خضراء",
+        "فراشة"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "question": "بماذا شعرت بطبوطة في النهاية؟",
+      "options": [
+        "بالخوف",
+        "بالسعادة",
+        "بالجوع"
+      ],
+      "correctIndex": 1
+    }
+  ],
+  "isFree": true,
+  "status": "published"
+}

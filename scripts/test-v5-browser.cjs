@@ -23,10 +23,10 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
    assert.equal(await page.locator('.v5-nav use[href*="fudool-premium-art.svg"]').count(),5);
    assert((await page.locator('.v5-nav a[aria-current="page"]').count())===1);
    assert.equal(await page.locator('.v5-nav a').count(),6);
-   assert.equal(await page.locator('.v5-nav a[href="#v5-pages"]').innerText(),lang==='ar'?'صفحات':'Stories');
+   assert.equal(await page.locator('.v5-nav a[href="#v5-pages"]').innerText(),lang==='ar'?'الحكايات':'Stories');
    const storyTab=page.locator('.v5-nav a[href="#v5-pages"]');
    const seriesTab=page.locator('.v5-nav a[href="#v5-watch"]');
-   assert.equal(await seriesTab.innerText(),lang==='ar'?'مسلسلات':'Series');
+   assert.equal(await seriesTab.innerText(),lang==='ar'?'الحلقات':'Episodes');
    assert.equal(await seriesTab.locator('use').getAttribute('href'),'/assets/fudool-premium-art.svg#series');
    await storyTab.click();await visible('stories');await fit();
    await page.locator('[data-v5-view="stories"] .pages-card').first().waitFor();
@@ -47,11 +47,12 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
    await page.locator('.v5-nav a[href="#v5-achievements"]').click();await visible('achievements');await fit();
    await page.waitForSelector('.v5-badge');assert.equal(await page.locator('.v5-badge').count(),4);
    await page.locator('.v5-nav a[href="#v5-more"]').click();await visible('more');await fit();
-   assert.equal(await page.locator('.v5-social').count(),4);
+   assert.equal(await page.locator('.v5-social-card').count(),2);
+   assert.equal(await page.locator('.v5-social-mini .v5-social').count(),2);
    await page.screenshot({path:'build/v5-screenshots/'+lang+'-'+width+'-more.png',fullPage:true});
    assert.deepEqual(errors,[],lang+' '+width+' JS errors');
    await page.close();
-   console.log('PASS',lang,width,'five views / 20 games / catalogue / direct links / no overflow');
+   console.log('PASS',lang,width,'six views / 20 games / catalogue / direct links / no overflow');
   }
   // Check shared art and actual level entry for all twenty games in both languages.
   const ids=["vowel-drive","letter-match","letter-hunt","counting","english-abc","memory","trace","robo-lab","puzzle","sound-quiz","fudool-shop","word-factory","lumaa-clock","code-robo","world-mishaal","planet-engineer","healthy-hero","space-journey","spot-differences","grand-challenge"];
@@ -138,7 +139,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
    await page.goto(home,{waitUntil:'networkidle'});
    await page.locator('.v5-nav a[href="#v5-more"]').click();
    for(const host of ['www.youtube.com','www.instagram.com','www.tiktok.com','kokabfodool.com']){
-    await page.locator('.v5-social[data-v5-external*="'+host+'"]').click();
+    await page.locator('.v5-social-card[data-v5-external*="'+host+'"], .v5-social[data-v5-external*="'+host+'"]').click();
     await page.waitForURL('**/play-app/external/?url=*');
     assert.equal(new URL(opened).hostname,host);
     await page.goto(home,{waitUntil:'networkidle'});

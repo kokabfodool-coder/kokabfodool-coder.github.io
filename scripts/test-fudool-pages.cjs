@@ -9,7 +9,7 @@ const root='http://127.0.0.1:8714';
   if(await fetch(root+'/stories/').then(response=>response.ok).catch(()=>false))break;
   await wait(100);
  }
- const browser=await chromium.launch();
+ const browser=await chromium.launch({executablePath:process.env.FUDOOL_CHROMIUM});
  try {
  const route='/stories/robo-little-seed/';
  for(const width of [320,390,800,1280]){
@@ -25,7 +25,7 @@ const root='http://127.0.0.1:8714';
   assert.equal(await page.getByRole('link',{name:'روبو والبذرة الصغيرة'}).count(),0);
   await page.locator('[name="age"]').selectOption('7');
   await page.getByRole('link',{name:'فضّول وسرّ الحديقة'}).waitFor();
-  assert.equal(await page.locator('.pages-card').count(),2);
+  assert.equal(await page.locator('.pages-card').count(),3);
   await page.locator('[name="age"]').selectOption('5');
   await page.locator('.pages-card').filter({has:page.getByRole('link',{name:'روبو والبذرة الصغيرة',exact:true})}).getByRole('button',{name:'المفضلة'}).click();
   await page.locator('[name="status"]').selectOption('favorite');

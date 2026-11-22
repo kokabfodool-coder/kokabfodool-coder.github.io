@@ -15,7 +15,7 @@ for url in manifest['files']:
     target = site / relative
     target.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(relative, target)
-for relative in sorted(Path('print').glob('*/*.pdf')):
+for relative in sorted(Path('print').rglob('*.pdf')):
     target = site / relative
     target.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(relative, target)

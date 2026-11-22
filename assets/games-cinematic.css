@@ -1,0 +1,133 @@
+/* Kawkab Fudool games — cinematic identity layer (V6.9).
+   Keeps every game's own palette (--gv-*) and adds shared depth, light and motion. */
+
+/* ---------- Game hub cards ---------- */
+.game-visual-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow: 0 14px 32px rgba(44, 22, 92, .10);
+  transition: transform .22s cubic-bezier(.2, .7, .2, 1), box-shadow .22s ease, border-color .22s ease;
+}
+.game-visual-card::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: 4px;
+  z-index: 2;
+  background: linear-gradient(90deg, var(--gv-main), var(--gv-a) 55%, #ffd479);
+  opacity: .85;
+}
+.game-visual-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 26px 52px rgba(44, 22, 92, .18);
+}
+.game-visual-card .game-visual-cover {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .65), inset 0 -22px 40px rgba(53, 37, 109, .10);
+  transition: transform .3s ease;
+}
+.game-visual-card:hover .game-visual-cover { transform: translateY(-2px); }
+.game-visual-card .game-scene { transition: transform .5s cubic-bezier(.2, .7, .2, 1); transform-origin: 30% 70%; }
+.game-visual-card:hover .game-scene { transform: scale(1.07) rotate(-1.5deg); }
+.game-visual-card .game-mascot { transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
+.game-visual-card:hover .game-mascot { transform: translateY(-5px) scale(1.03); }
+.game-visual-card .round-arrow {
+  background: linear-gradient(145deg, var(--gv-b), #fff);
+  box-shadow: 0 6px 14px rgba(53, 37, 109, .12);
+  transition: transform .18s ease, background .18s ease;
+}
+.game-visual-card:hover .round-arrow { transform: translateX(-3px); background: var(--gv-a); }
+.game-visual-meta span {
+  background: rgba(255, 255, 255, .72) !important;
+  border: 1px solid var(--gv-border);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+/* ---------- Game page shell ---------- */
+.game-shell[data-game-theme] {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+}
+.game-shell[data-game-theme]::before {
+  content: "";
+  position: absolute;
+  inset: -1.5rem 0 auto;
+  block-size: 22rem;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 50% 60% at 85% 0%, var(--gv-a), transparent 62%),
+    radial-gradient(ellipse 45% 55% at 10% 10%, var(--gv-b), transparent 60%);
+  opacity: .65;
+  filter: blur(6px);
+}
+.game-shell[data-game-theme] .simple-intro {
+  border-color: var(--gv-border);
+  background:
+    radial-gradient(ellipse at 100% 0%, var(--gv-b), transparent 58%),
+    radial-gradient(ellipse at 0% 100%, #fff, transparent 60%),
+    #fff;
+}
+.game-shell[data-game-theme] .simple-intro h1::after { background: linear-gradient(90deg, var(--gv-main), var(--gv-a), #ffd479); }
+.game-shell[data-game-theme] .game-board {
+  position: relative;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(255, 255, 255, .9), transparent 32%),
+    linear-gradient(165deg, #fff, var(--gv-b));
+  box-shadow: 0 22px 50px rgba(53, 37, 109, .12);
+}
+.game-shell[data-game-theme] .game-cue {
+  box-shadow: inset 0 1px 0 #fff, 0 10px 24px rgba(53, 37, 109, .08);
+}
+.game-shell[data-game-theme] .game-level {
+  position: relative;
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.game-shell[data-game-theme] .game-level::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: -40%;
+  inline-size: 30%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .65), transparent);
+  transform: skewX(-18deg);
+  transition: inset-inline-start .5s ease;
+  pointer-events: none;
+}
+.game-shell[data-game-theme] .game-level:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(53, 37, 109, .14);
+}
+.game-shell[data-game-theme] .game-level:not(:disabled):hover::after { inset-inline-start: 120%; }
+.game-shell[data-game-theme] .game-option {
+  background: linear-gradient(160deg, #fff, var(--gv-b));
+  transition: transform .14s ease, box-shadow .14s ease, background .14s ease;
+}
+.game-shell[data-game-theme] .game-option:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(53, 37, 109, .14), 0 3px 0 var(--gv-border);
+}
+.game-shell[data-game-theme] .game-progress {
+  background: rgba(255, 255, 255, .8);
+  border: 1px solid var(--gv-border);
+  box-shadow: 0 6px 14px rgba(53, 37, 109, .08);
+}
+.game-shell[data-game-theme] .game-sound-bar .button {
+  background: rgba(255, 255, 255, .82);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 18px rgba(53, 37, 109, .10);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-visual-card, .game-visual-card .game-scene, .game-visual-card .game-mascot,
+  .game-visual-card .round-arrow, .game-shell[data-game-theme] .game-level,
+  .game-shell[data-game-theme] .game-option { transition: none !important; }
+  .game-visual-card:hover, .game-shell[data-game-theme] .game-level:not(:disabled):hover,
+  .game-shell[data-game-theme] .game-option:hover:not(:disabled) { transform: none; }
+  .game-shell[data-game-theme] .game-level::after { display: none; }
+}

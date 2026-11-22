@@ -1,0 +1,270 @@
+/* Kawkab Fudool app — cinematic layer (V6.9).
+   Adds depth, glass and light to the existing app shell without changing
+   navigation behaviour, storage keys or game engines. */
+
+.v5-body, body.v5-body {
+  background-color: #f7f3ff;
+  background-image:
+    radial-gradient(circle at 8% 4%, rgba(86, 52, 216, .12), transparent 26rem),
+    radial-gradient(circle at 96% 14%, rgba(255, 196, 102, .16), transparent 22rem),
+    radial-gradient(circle at 50% 100%, rgba(143, 227, 255, .10), transparent 30rem);
+  background-attachment: fixed;
+}
+
+/* The download bubble belongs to the website, not to the app shell. */
+.v5-body .download-app-bubble { display: none !important; }
+
+/* ---------- Hero ---------- */
+.v5-hero {
+  background:
+    radial-gradient(ellipse 60% 80% at 85% 12%, rgba(255, 212, 121, .22), transparent 62%),
+    radial-gradient(ellipse 70% 80% at 10% 20%, rgba(158, 124, 255, .55), transparent 66%),
+    linear-gradient(145deg, #1b0e3f 0%, #3a1d7d 52%, #241050 100%);
+  box-shadow: 0 10px 0 rgba(215, 200, 243, .55), 0 28px 60px rgba(38, 18, 82, .28);
+}
+.v5-hero::before {
+  border-color: rgba(255, 212, 121, .30);
+  box-shadow: 0 0 60px rgba(255, 212, 121, .12) inset;
+  animation: app-orbit 30s linear infinite;
+}
+.v5-hero::after {
+  border-color: rgba(143, 227, 255, .22);
+  animation: app-orbit 44s linear infinite reverse;
+}
+.v5-hero h1 {
+  background: linear-gradient(96deg, #ffffff 0%, #ffe6a3 58%, #ffb7dc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 10px 34px rgba(255, 203, 110, .12);
+}
+.v5-hero img { animation: app-float 7s ease-in-out infinite; filter: drop-shadow(0 18px 26px rgba(8, 3, 28, .38)); }
+.v5-play {
+  background: linear-gradient(135deg, #ffe19a, #ffc44f 55%, #ffb02e) !important;
+  color: #3a2200 !important;
+  box-shadow: 0 5px 0 #b97900, 0 14px 28px rgba(255, 186, 46, .32) !important;
+}
+.v5-play:hover { filter: brightness(1.04); }
+.v5-hero-learn {
+  background: rgba(255, 255, 255, .10) !important;
+  border-color: rgba(255, 255, 255, .28) !important;
+  color: #fff !important;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.v5-hero-label { color: #ffe6a3 !important; }
+
+/* ---------- Section heads ---------- */
+.v5-section-head h2, .app-section-title h2 {
+  position: relative;
+  padding-block-end: .45rem;
+}
+.v5-section-head h2::after, .app-section-title h2::after {
+  content: "";
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  inline-size: 46px;
+  block-size: 4px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #6a45e6, #ff9ecb, #ffd479);
+}
+.v5-learning-hero {
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(255, 212, 121, .18), transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgba(86, 52, 216, .12), transparent 55%),
+    #fff !important;
+  border: 1px solid rgba(86, 52, 216, .10);
+  box-shadow: 0 16px 38px rgba(44, 22, 92, .08);
+}
+
+/* ---------- Series and game tiles ---------- */
+.v5-series {
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  box-shadow: 0 12px 28px rgba(44, 22, 92, .08);
+}
+.v5-series:hover { transform: translateY(-3px); border-color: rgba(86, 52, 216, .26); box-shadow: 0 20px 40px rgba(44, 22, 92, .14); }
+.v5-series img { transition: transform .45s cubic-bezier(.2, .7, .2, 1); }
+.v5-series:hover img { transform: scale(1.04); }
+.app-game-card {
+  border: 1px solid rgba(86, 52, 216, .10);
+  box-shadow: 0 8px 0 rgba(230, 222, 243, .9), 0 18px 34px rgba(44, 22, 92, .08);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.app-game-card:hover { transform: translateY(-3px); box-shadow: 0 8px 0 rgba(230, 222, 243, .9), 0 24px 44px rgba(44, 22, 92, .14); }
+.app-game-art { background: linear-gradient(160deg, #f2ecff, #fff8e8) !important; }
+
+/* ---------- Stories cards ---------- */
+.v5-stories .pages-hero {
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(255, 212, 121, .20), transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgba(86, 52, 216, .12), transparent 55%),
+    #fff;
+  border: 1px solid rgba(86, 52, 216, .10);
+  box-shadow: 0 18px 42px rgba(44, 22, 92, .10);
+}
+.v5-stories .pages-card { border-color: rgba(86, 52, 216, .10); box-shadow: 0 14px 32px rgba(44, 22, 92, .10); }
+
+/* ---------- Bottom navigation: six clear destinations ---------- */
+.v5-nav {
+  background: rgba(255, 255, 255, .88);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  border-top: 1px solid rgba(86, 52, 216, .10);
+  box-shadow: 0 -14px 40px rgba(35, 18, 74, .12);
+  gap: 0;
+  padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+}
+.v5-nav::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 12%;
+  block-size: 2px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, transparent, rgba(106, 69, 230, .55), rgba(255, 158, 203, .55), transparent);
+}
+.v5-nav a {
+  min-height: 62px;
+  padding: 6px 1px;
+  gap: 1px;
+  border-radius: 15px;
+  font-size: clamp(.58rem, 2.55vw, .72rem);
+  letter-spacing: -.01em;
+  color: #5f4c86;
+  transition: color .18s ease, background .18s ease, transform .18s ease;
+}
+.v5-nav a span { white-space: nowrap; }
+.v5-nav .v5-icon { width: 25px; height: 25px; }
+.v5-nav .v5-pages-icon { width: 28px; height: 28px; border-radius: 9px; }
+.v5-nav a[aria-current="true"], .v5-nav a[aria-current="page"] {
+  color: #fff;
+  background: linear-gradient(160deg, #6a45e6, #4a27bd);
+  box-shadow: 0 8px 18px rgba(74, 39, 189, .34);
+}
+.v5-nav a[aria-current="true"] .v5-icon, .v5-nav a[aria-current="page"] .v5-icon { filter: brightness(0) invert(1); }
+.v5-nav a[aria-current="true"] .v5-pages-icon, .v5-nav a[aria-current="page"] .v5-pages-icon { box-shadow: 0 0 0 2px rgba(255, 255, 255, .55); }
+
+/* ---------- Social: two featured cards ---------- */
+.v5-social-feature {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 14px 0 10px;
+}
+.v5-social-card {
+  position: relative;
+  display: grid;
+  align-content: space-between;
+  gap: 12px;
+  min-height: 168px;
+  padding: 16px 14px;
+  border: 0;
+  border-radius: 24px;
+  color: #fff;
+  font: inherit;
+  text-align: start;
+  overflow: hidden;
+  cursor: pointer;
+  isolation: isolate;
+  box-shadow: 0 16px 34px rgba(35, 18, 74, .20);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.v5-social-card:hover { transform: translateY(-3px); box-shadow: 0 22px 44px rgba(35, 18, 74, .28); }
+.v5-social-card::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  z-index: -1;
+  background: radial-gradient(circle at 70% 20%, rgba(255, 255, 255, .38), transparent 45%);
+  opacity: .55;
+}
+.v5-social-ig { background: linear-gradient(145deg, #7b2ff7 0%, #d6318f 52%, #ff8a3d 100%); }
+.v5-social-tt { background: linear-gradient(150deg, #0f0c22 0%, #241436 55%, #123a45 100%); }
+.v5-social-tt::before {
+  content: "";
+  position: absolute;
+  inset: auto -20% -55% auto;
+  inline-size: 150px;
+  block-size: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37, 244, 238, .40), transparent 62%);
+  filter: blur(8px);
+}
+.v5-social-icon {
+  display: grid;
+  place-items: center;
+  inline-size: 52px;
+  block-size: 52px;
+  border-radius: 17px;
+  background: rgba(20, 8, 40, .22);
+  border: 1px solid rgba(255, 255, 255, .40);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.v5-social-icon .instagram-icon { width: 30px; height: 30px; color: #fff; border-width: 2.5px; border-radius: 9px; }
+.v5-social-icon .instagram-icon::before { width: 12px; height: 12px; border-width: 2px; }
+.v5-social-icon .instagram-icon::after { width: 3.5px; height: 3.5px; inset: 4px 4px auto auto; }
+.v5-social-icon img { width: 28px; height: 28px; filter: brightness(0) invert(1); }
+.v5-social-meta { display: grid; gap: 1px; }
+.v5-social-meta strong { font-size: 1.12rem; letter-spacing: -.01em; }
+.v5-social-meta small { font-family: Nunito, sans-serif; direction: ltr; font-size: .74rem; opacity: .92; }
+.v5-social-meta > span { margin-block-start: 3px; font-size: .76rem; line-height: 1.4; opacity: .88; }
+.v5-social-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  justify-self: start;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .18);
+  border: 1px solid rgba(255, 255, 255, .30);
+  font-size: .76rem;
+  font-weight: 850;
+}
+.v5-social-mini {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.v5-social-mini .v5-social {
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 10px;
+  min-height: 64px;
+  padding: 10px 12px;
+  text-align: start;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(44, 22, 92, .06);
+}
+.v5-social-mini .v5-social strong { font-size: .88rem; }
+.v5-social-mini .v5-social small { font-size: .68rem; }
+.v5-social-mini .v5-social > span:last-child { display: none; }
+.v5-social-mini .youtube-icon { width: 30px; height: 22px; }
+.v5-social-mini .v5-icon { width: 30px; height: 30px; }
+
+/* ---------- Family banner ---------- */
+.v5-family-banner {
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(255, 212, 121, .18), transparent 55%),
+    #fff;
+  border-color: rgba(86, 52, 216, .12);
+  box-shadow: 0 16px 34px rgba(44, 22, 92, .08);
+}
+
+@keyframes app-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes app-orbit { to { transform: rotate(360deg); } }
+
+@media (max-width: 360px) {
+  .v5-nav a { font-size: .56rem; }
+  .v5-nav .v5-icon { width: 22px; height: 22px; }
+  .v5-social-feature, .v5-social-mini { grid-template-columns: minmax(0, 1fr); }
+  .v5-social-card { min-height: 138px; padding: 14px 13px; }
+  .v5-social-meta strong { font-size: 1.05rem; }
+  .v5-social-mini .v5-social { min-height: 58px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v5-hero img, .v5-hero::before, .v5-hero::after { animation: none !important; }
+  .v5-series, .app-game-card, .v5-social-card { transition: none !important; }
+  .v5-series:hover, .app-game-card:hover, .v5-social-card:hover { transform: none; }
+}
