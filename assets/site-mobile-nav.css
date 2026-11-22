@@ -161,19 +161,33 @@
 .game-toolbar { display:flex; align-items:center; justify-content:space-between; gap:6px; }
 .game-exit-links { display:flex; flex-wrap:wrap; gap:4px; }
 .game-exit-links .button { margin:0; padding:5px 10px; min-height:36px; font-size:.82rem; }
+.fudool-android-shell .game-result-content {
+  display:grid;
+  justify-items:center;
+  align-content:start;
+  gap:.45rem;
+  width:100%;
+}
 @media (max-width:900px) {
   html.fudool-android-shell body:has(.game-shell) .game-board[data-level-result]:not([hidden]) {
-    overflow-x:hidden;
-    overflow-y:auto;
-    align-content:start;
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    justify-content:flex-start;
+    overflow:hidden;
+  }
+  .fudool-android-shell .game-result-content {
+    flex:1 1 auto;
+    min-height:0;
+    overflow:auto;
     overscroll-behavior:contain;
     scroll-padding-block:8px;
   }
-  html.fudool-android-shell .game-result > img.reward-mascot {
+  html.fudool-android-shell .game-result-content > img.reward-mascot {
     width:clamp(54px,12dvh,105px); height:clamp(54px,12dvh,105px);
   }
   html.fudool-android-shell .game-result p { margin-block:0; }
   html.fudool-android-shell .game-result .reward-detail { gap:.35rem; }
-  html.fudool-android-shell .game-result .game-actions { flex-wrap:wrap; }
+  html.fudool-android-shell .game-result .game-actions { flex-wrap:wrap; padding-block:6px; }
   html.fudool-android-shell .game-result .fudool-related { display:none; }
 }

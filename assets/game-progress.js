@@ -171,6 +171,14 @@ export function bindJourney({id, levels}, board, renderRound) {
   navigation.className = 'game-exit-links';
   navigation.setAttribute('aria-label', tr('مغادرة اللعبة', 'Leave the game'));
   const app = /FudoolAndroidUnified/.test(navigator.userAgent);
+  let resultContent;
+  if (app) {
+    const actions = result.querySelector('.game-actions');
+    resultContent = document.createElement('div');
+    resultContent.className = 'game-result-content';
+    resultContent.append(...Array.from(result.childNodes).filter(node => node !== actions));
+    result.prepend(resultContent);
+  }
   const locale = language === 'ar' ? '' : '/en';
   const home = app ? locale + '/play-app/' : locale + '/';
   const games = app ? home + '#v5-games' : locale + '/games/';
@@ -417,8 +425,8 @@ export function bindJourney({id, levels}, board, renderRound) {
       score: score(), best, total, badges: starBadges, rounds: levels[level].rounds.length,
       last: allComplete && atEnd, pathComplete, endNote, previousTotal,
     });
-    if (app) {
-      result.scrollTop = 0;
+    if (resultContent) {
+      resultContent.scrollTop = 0;
       result.querySelector('h2').focus({preventScroll: true});
     }
   }

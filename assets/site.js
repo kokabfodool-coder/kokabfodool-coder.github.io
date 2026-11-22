@@ -158,7 +158,7 @@ if (!document.body.classList.contains('v5-body')) {
   document.documentElement.classList.add('has-site-app-nav');
   const navStyles = document.createElement('link');
   navStyles.rel = 'stylesheet';
-  navStyles.href = '/assets/site-mobile-nav.css?v=8';
+  navStyles.href = '/assets/site-mobile-nav.css?v=9';
   document.head.append(navStyles);
 
   if (!document.querySelector('.download-app-bubble')) {

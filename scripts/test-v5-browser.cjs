@@ -183,7 +183,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
    const result = page.locator('[data-level-result]');
    await result.waitFor();
    assert.equal(await result.locator('.reward-earned-stars .earned').count(), 3);
-   assert.equal(await result.evaluate(el => getComputedStyle(el).overflowY), 'auto');
+   assert.equal(await result.locator('.game-result-content').evaluate(el => getComputedStyle(el).overflowY), 'auto');
    await result.locator('[data-level-replay]').scrollIntoViewIfNeeded();
    assert(await result.locator('[data-level-replay]').evaluate(el => el.getBoundingClientRect().bottom <= innerHeight));
    await exitLinks.last().click();
