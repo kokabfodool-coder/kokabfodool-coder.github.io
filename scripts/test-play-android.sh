@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-package=com.kokabfodool.offline
+package=kokab.fodool
+website_package=com.kokabfodool.offline
 activity="$package/com.kokabfodool.shell.MainActivity"
 version=$(sed -nE "s/.*versionName '([^']+)'.*/\1/p" android-app/build.gradle)
 code=$(sed -nE "s/.*versionCode ([0-9]+).*/\1/p" android-app/build.gradle)
@@ -25,7 +26,9 @@ adb shell wm size 390x844
 adb shell wm density 160
 adb shell input keyevent 82
 adb install downloads/apps/Kokab-Fodool-V6.7.1.apk
-adb install -r "$apk"
+adb install -r "build/play/website/Kawkab-Fudool-$version.apk"
+adb shell dumpsys package "$website_package" | grep -F "versionCode=$code"
+adb install "$apk"
 adb shell dumpsys package "$package" | grep -F "versionCode=$code"
 adb shell dumpsys package "$package" | grep -F "versionName=$version"
 adb shell cmd connectivity airplane-mode enable
@@ -226,7 +229,7 @@ find_label 'تُقبل الكتابة عند تجاوز 75%' no
 find_label 'اسمع الكلمة' yes
 find_label 'استمع ببطء' yes
 adb exec-out screencap -p > build/play-device/android-offline-writing.png
-echo "PASS Android $version upgrades from 6.7.1 and opens settings, dictation, memory and age-based games in airplane mode."
+echo "PASS website APK $version upgrades from 6.7.1; Play build opens settings, dictation, memory and age-based games in airplane mode."
 
 adb shell am force-stop "$package"
 adb shell wm size 800x1280

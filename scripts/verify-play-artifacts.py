@@ -10,8 +10,12 @@ pack = json.loads(Path('offline-pack.json').read_text())
 paths = [unquote(url.lstrip('/')) + ('index.html' if url.endswith('/') else '')
          for url in pack['files']]
 paths = sorted(set(paths).union(str(path) for path in Path('print').rglob('*.pdf')))
-for artifact, prefix in [('apk', ''), ('aab', 'base/')]:
-    matches = sorted(out.glob('Kawkab-Fudool-*.' + artifact))
+for label, pattern, prefix in [
+    ('Play APK', 'Kawkab-Fudool-*.apk', ''),
+    ('Play AAB', 'Kawkab-Fudool-*.aab', 'base/'),
+    ('Website APK', 'website/Kawkab-Fudool-*.apk', ''),
+]:
+    matches = sorted(out.glob(pattern))
     assert len(matches) == 1, matches
     with ZipFile(matches[0]) as archive:
         names = archive.namelist()
@@ -19,4 +23,4 @@ for artifact, prefix in [('apk', ''), ('aab', 'base/')]:
         assert ('base/dex/classes.dex' if prefix else 'classes.dex') in names
         for path in paths:
             assert archive.read(prefix + 'assets/site/' + path) == Path(path).read_bytes(), path
-    print(artifact.upper(), len(paths), 'exact shared assets; no native libraries')
+    print(label, len(paths), 'exact shared assets; no native libraries')
