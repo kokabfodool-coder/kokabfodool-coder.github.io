@@ -85,7 +85,7 @@ jobs:
           "$tools/zipalign" -c -P 16 -v 4 build/play/*.apk > build/play/alignment.txt
           "$tools/aapt" dump badging build/play/*.apk > build/play/apk-badging.txt
           grep -F "targetSdkVersion:'36'" build/play/apk-badging.txt
-          grep -F "name='com.kokabfodool.offline' versionCode='$APP_VERSION_CODE'" build/play/apk-badging.txt
+          grep -F "name='com.kokabfodool.offline' versionCode='$CODE'" build/play/apk-badging.txt
           jarsigner -verify build/play/*.aab | tee build/play/aab-signature.txt
           grep -Fx 'jar verified.' build/play/aab-signature.txt
           keytool -printcert -jarfile build/play/*.aab > build/play/aab-certificate.txt
@@ -94,8 +94,8 @@ jobs:
           curl --fail --silent --show-error --location --retry 2 \
             https://github.com/google/bundletool/releases/download/1.18.2/bundletool-all-1.18.2.jar \
             -o "$RUNNER_TEMP/bundletool.jar"
-          java -jar "$RUNNER_TEMP/bundletool.jar" validate --bundle=build/play/Kawkab-Fudool-$APP_VERSION.aab
-          java -jar "$RUNNER_TEMP/bundletool.jar" dump manifest --bundle=build/play/Kawkab-Fudool-$APP_VERSION.aab --module=base > build/play/aab-manifest.xml
+          java -jar "$RUNNER_TEMP/bundletool.jar" validate --bundle="build/play/Kawkab-Fudool-$VERSION.aab"
+          java -jar "$RUNNER_TEMP/bundletool.jar" dump manifest --bundle="build/play/Kawkab-Fudool-$VERSION.aab" --module=base > build/play/aab-manifest.xml
           grep -F 'android:targetSdkVersion="36"' build/play/aab-manifest.xml
           python3 scripts/verify-play-artifacts.py build/play
           (cd build/play && sha256sum *.apk *.aab > SHA256SUMS)
