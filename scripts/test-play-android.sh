@@ -166,6 +166,11 @@ find_label 'العودة إلى المزيد' yes
 find_label 'الصوت واسم اللاعب' yes
 find_label 'اسم اللاعب' yes android.widget.EditText
 adb shell input text 'Fudool'
+find_label 'Fudool' no android.widget.EditText
+# Dismiss the keyboard before finding the save button below the name field.
+if [[ $(adb shell dumpsys input_method) == *mInputShown=true* ]]; then
+  adb shell input keyevent KEYCODE_BACK
+fi
 find_label 'حفظ الاسم' yes
 find_label 'حُفظ اسم اللاعب' no
 adb exec-out screencap -p > build/play-device/android-offline-settings.png
