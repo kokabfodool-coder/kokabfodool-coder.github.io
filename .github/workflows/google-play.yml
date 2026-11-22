@@ -146,7 +146,7 @@ jobs:
           target: google_apis
           arch: x86_64
           disable-animations: true
-          emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -feature -Vulkan -memory 2048 -cores 2
+          emulator-options: -no-window -gpu software -no-snapshot -noaudio -no-boot-anim -feature -Vulkan -memory 3072 -cores 2
           script: bash scripts/test-play-android.sh
       - uses: actions/upload-artifact@v4
         if: always()

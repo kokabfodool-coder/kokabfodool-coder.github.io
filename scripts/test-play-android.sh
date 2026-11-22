@@ -9,6 +9,18 @@ test -n "$version" && test -n "$code"
 apk="build/play/Kawkab-Fudool-$version.apk"
 mkdir -p build/play-device
 
+capture_failure() {
+  local result=$?
+  if (( result != 0 )); then
+    adb devices -l > build/play-device/android-devices.txt || true
+    timeout 8 adb exec-out screencap -p > build/play-device/android-failure.png || true
+    timeout 8 adb exec-out cat /sdcard/fudool-ui.xml > build/play-device/android-failure.xml || true
+    timeout 8 adb logcat -d -t 1500 chromium:V AndroidRuntime:E '*:S' > build/play-device/android-failure-logcat.txt || true
+  fi
+  exit "$result"
+}
+trap capture_failure EXIT
+
 adb shell wm size 390x844
 adb shell wm density 160
 adb shell input keyevent 82
@@ -33,16 +45,23 @@ import unicodedata
 import xml.etree.ElementTree as ET
 
 label, tap, node_class = sys.argv[1:]
+print('Looking for Android UI:', label, flush=True)
 def normalize(text):
     return ''.join(c for c in unicodedata.normalize('NFKD', text)
                    if not unicodedata.combining(c) and unicodedata.category(c) != 'Cf').strip()
 
 needle = normalize(label)
+navigation = label in ('الألعاب', 'المزيد', 'الحكايات', 'الرئيسية')
+size = subprocess.check_output(['adb','shell','wm','size'], text=True)
+width, height = map(int, re.findall(r'(\d+)x(\d+)', size)[-1])
+midpoint = str(width // 2)
 story_cover = label in ('فضّول وسرّ الحديقة', 'رحلة إلى مدينة الطاقة النظيفة')
-story_reader = story_cover or label in ('صفحات فضول', 'التالي', 'كل القصص', 'تكبير الصورة', 'إغلاق')
 visible = []
 for attempt in range(15):
-    dump = subprocess.run(['adb','shell','uiautomator','dump','/sdcard/fudool-ui.xml'], capture_output=True)
+    dump = subprocess.run(['adb','shell','uiautomator','dump','/sdcard/fudool-ui.xml'], capture_output=True, timeout=25)
+    if dump.returncode != 0:
+        print(dump.stderr.decode(errors='replace').strip(), flush=True)
+        subprocess.run(['adb','shell','true'], check=True, timeout=8)
     if dump.returncode == 0:
         xml = subprocess.check_output(['adb','exec-out','cat','/sdcard/fudool-ui.xml'])
         if xml.startswith(b'<?xml'):
@@ -69,7 +88,7 @@ for attempt in range(15):
                 center_y = (y1+y2)//2
                 if story_cover and clickable:
                     center_y = min(center_y, y1+35)
-                if tap == 'yes' and label not in ('الألعاب', 'المزيد', 'صفحات') and center_y >= (1130 if story_reader else 740):
+                if tap == 'yes' and not navigation and center_y >= height - 104:
                     behind_navigation = True
                     continue
                 priority = (not clickable, not exact) if story_cover else (not exact, not clickable)
@@ -82,20 +101,13 @@ for attempt in range(15):
                 print('Android UI:', label, 'tapped' if tap == 'yes' else 'visible', flush=True)
                 sys.exit(0)
             if behind_navigation:
-                subprocess.run(['adb','shell','input','swipe','193','690','193','490','280'],check=True)
+                subprocess.run(['adb','shell','input','swipe',midpoint,str(height-154),midpoint,str(height-354),'280'],check=True)
                 time.sleep(.5)
                 continue
-    if attempt in (3,6,9,12):
-        subprocess.run(['adb','shell','input','swipe','193', '1110' if story_reader else '725','193','370','350'],check=True)
+    if not navigation and attempt in (1,3,5,7,9,11,13):
+        subprocess.run(['adb','shell','input','swipe',midpoint,str(height-135),midpoint,str(height//3),'350'],check=True)
     time.sleep(1)
 print('Visible controls:', visible, flush=True)
-# Preserve the actual failed screen and WebView accessibility tree for diagnosis.
-with open('build/play-device/android-failure.png', 'wb') as output:
-    subprocess.run(['adb','exec-out','screencap','-p'], stdout=output, check=False)
-with open('build/play-device/android-failure.xml', 'wb') as output:
-    subprocess.run(['adb','exec-out','cat','/sdcard/fudool-ui.xml'], stdout=output, check=False)
-with open('build/play-device/android-failure-logcat.txt', 'wb') as output:
-    subprocess.run(['adb','logcat','-d','-t','1500','chromium:V','AndroidRuntime:E','*:S'], stdout=output, check=False)
 raise SystemExit('Offline Android view did not display: ' + label)
 PY
 }
@@ -104,9 +116,9 @@ adb shell wm size 820x1280
 adb shell wm density 160
 adb shell am force-stop "$package"
 adb shell am start -W -n "$activity"
-find_label 'صفحات' no
+find_label 'الحكايات' no
 adb exec-out screencap -p > build/play-device/android-home-safe-bars.png
-find_label 'صفحات' yes
+find_label 'الحكايات' yes
 adb shell input swipe 385 1090 385 490 300
 find_label 'فضّول وسرّ الحديقة' yes
 find_label '1/9' no
@@ -135,10 +147,12 @@ adb shell wm density 160
 adb shell am start -W -n "$activity"
 
 find_label 'المزيد' yes
-find_label 'الحروف العربية' yes
+find_label 'تصفح أوراق العمل' yes
+find_label 'افتح ورقة العمل: رحلتي الأولى مع الحروف العربية' yes
 find_label 'صفحة 1' no
 adb exec-out screencap -p > build/play-device/android-offline-pdf.png
 find_label 'رجوع إلى التطبيق' yes
+find_label 'العودة إلى المزيد' yes
 find_label 'الصوت واسم اللاعب' yes
 find_label 'اسم اللاعب' no
 find_label 'مستويات الصوت' no
@@ -205,7 +219,8 @@ adb shell wm size 800x1280
 adb shell wm density 160
 adb shell am start -W -n "$activity"
 find_label 'المزيد' yes
-find_label 'الحروف العربية' yes
+find_label 'تصفح أوراق العمل' yes
+find_label 'افتح ورقة العمل: رحلتي الأولى مع الحروف العربية' yes
 find_label 'صفحة 1' no
 adb exec-out screencap -p > build/play-device/android-tablet-pdf.png
 adb shell cat /proc/meminfo | head -6 > build/play-device/device-memory.txt
