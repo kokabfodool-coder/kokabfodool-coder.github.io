@@ -32,8 +32,11 @@ async function validateHomeCovers(browser, language, width) {
         const style = getComputedStyle(card);
         const contentWidth = card.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
         const ratio = bounds.width / bounds.height;
+        const aspect = getComputedStyle(cover).aspectRatio.split('/').map(Number);
+        const expectedRatio = aspect.length === 2 && aspect.every(value => Number.isFinite(value) && value > 0)
+          ? aspect[0] / aspect[1] : null;
         const fitted = getComputedStyle(scene).objectFit === 'cover' &&
-          (Math.abs(ratio - 1) < .06 || Math.abs(ratio - 1.5) < .06) &&
+          expectedRatio !== null && Math.abs(ratio - expectedRatio) < .06 &&
           bounds.width >= Math.min(120, contentWidth * .3);
         const placed = getComputedStyle(guide).position === 'absolute' &&
           badge.left >= bounds.left && badge.right <= bounds.right &&
@@ -508,7 +511,8 @@ async function validateWriting(browser, language) {
     const missingDot = await score();
     assert(missingDot <= 75, 'The word shape without the dot must be retried: ' + missingDot);
     assert(await next.isHidden());
-    await draw([[[352, 198], [358, 198]]]);
+    await page.locator('.trace-actions .button-white').last().click();
+    await draw([...handwriting, [[332, 184], [348, 184]]]);
     const wordScore = await score();
     assert(wordScore > 75, 'Properly placed Arabic handwriting must pass: ' + wordScore);
     assert(await next.isVisible());

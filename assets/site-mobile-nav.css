@@ -94,3 +94,63 @@
 }
 @media (prefers-reduced-motion: reduce) { .site-bottom-nav a { transition: none !important; } }
 @media print { .site-bottom-nav { display: none !important; } }
+
+/* Android WebView game mode: remove page chrome, keep play and audio controls in one viewport. */
+@media(max-width:900px){
+ html.fudool-android-shell body:has(.game-shell){height:100dvh;min-height:0;overflow:hidden;overscroll-behavior:none}
+ html.fudool-android-shell body:has(.game-shell) .site-head,
+ html.fudool-android-shell body:has(.game-shell) .site-foot,
+ html.fudool-android-shell body:has(.game-shell) .play-guide,
+ html.fudool-android-shell body:has(.game-shell) .crumbs,
+ html.fudool-android-shell body:has(.game-shell) .simple-intro,
+ html.fudool-android-shell body:has(.game-shell) .back-link,
+ html.fudool-android-shell body:has(.game-shell) .download-app-bubble,
+ html.fudool-android-shell body:has(.game-shell) .pwa-bottom-nav,
+ html.fudool-android-shell body:has(.game-shell) .site-bottom-nav{display:none!important}
+ html.fudool-android-shell body:has(.game-shell) #main{box-sizing:border-box;width:100%;height:100dvh;min-height:0;max-height:100dvh;overflow:hidden;padding:4px 7px}
+ html.fudool-android-shell body:has(.game-shell) .game-shell{box-sizing:border-box;display:flex;flex-direction:column;gap:4px;width:100%;max-width:none;height:100%;min-height:0;max-height:100%;margin:0;padding:0;overflow:hidden}
+ html.fudool-android-shell body:has(.game-shell) .game-sound-bar{flex:0 0 auto;min-height:0;margin:0;padding:0;text-align:end}
+ html.fudool-android-shell body:has(.game-shell) .game-sound-bar .game-sound{min-height:36px;padding:4px 11px;font-size:.82rem}
+ html.fudool-android-shell body:has(.game-shell) .game-board:not([hidden]){box-sizing:border-box;flex:1 1 auto;width:100%;min-height:0;max-height:100%;margin:0;padding:clamp(7px,1.5vh,14px);gap:clamp(5px,1vh,9px);overflow:hidden;align-content:center}
+ html.fudool-android-shell body:has(.game-shell) .game-board:not([hidden]) h2{margin:0;font-size:clamp(1.05rem,3.5vw,1.4rem);line-height:1.25}
+ html.fudool-android-shell body:has(.game-shell) .game-board:not([hidden])>p{margin:.1rem 0;font-size:.86rem;line-height:1.35}
+ html.fudool-android-shell body:has(.game-shell) .game-board:not([hidden]) .game-actions{flex:0 0 auto;margin:2px 0 0;gap:6px}
+ html.fudool-android-shell body:has(.game-shell) .game-level-list{max-height:40dvh;overflow-y:auto;overscroll-behavior:contain}
+ html.fudool-android-shell body:has(.game-shell) .drive-board:not([hidden]){grid-template-rows:auto auto auto minmax(140px,1fr) auto auto auto;align-content:stretch}
+ html.fudool-android-shell body:has(.game-shell) .drive-board .drive-scene{box-sizing:border-box;width:100%;height:100%;min-height:145px;max-height:min(38dvh,300px);block-size:auto;border-radius:16px}
+ html.fudool-android-shell body:has(.game-shell) .drive-board .drive-gate{min-block-size:clamp(78px,15dvh,128px)}
+ html.fudool-android-shell body:has(.game-shell) .drive-board .drive-gate-letter{font-size:clamp(2rem,8vw,3.3rem)}
+ html.fudool-android-shell body:has(.game-shell) .drive-controls{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px;margin:0}
+ html.fudool-android-shell body:has(.game-shell) .drive-controls p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:0;font-size:.82rem;line-height:1.3}
+ html.fudool-android-shell body:has(.game-shell) .drive-controls button{min-height:42px;padding:6px 14px}
+ html.fudool-android-shell body:has(.game-shell) .drive-board .game-feedback{min-height:1.2em;margin:0;font-size:.82rem;line-height:1.25}
+}
+@media(max-width:900px){
+ html.fudool-android-shell body:has(.game-shell) .game-shell{justify-content:flex-start;align-items:stretch}
+ html.fudool-android-shell body:has(.game-shell) .game-board[data-level-map]:not([hidden]){display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;min-height:0;overflow:hidden}
+ html.fudool-android-shell body:has(.game-shell) .game-board[data-level-map] .game-level-list{flex:1 1 auto;min-height:0;width:100%;max-height:none;overflow-y:auto;overscroll-behavior:contain}
+}
+@media(max-width:900px){
+ html.fudool-android-shell body:has(.game-shell) .premium-game-back,
+ html.fudool-android-shell body:has(.game-shell) .premium-game-heading{display:none!important}
+}
+@media(max-width:900px){
+ html.fudool-android-shell body:has(.game-shell) .game-visual-hero{display:none!important}
+ html.fudool-android-shell body:has(.game-shell) .game-board:not([hidden]) .reward-world-banner{display:none!important}
+ html.fudool-android-shell body:has(.game-shell) .sound-world-banner,
+ html.fudool-android-shell body:has(.game-shell) .sound-credits{display:none!important}
+ html.fudool-android-shell body:has(.game-shell) .drive-board:not([hidden]){grid-template-rows:auto auto auto minmax(24px,auto) minmax(160px,min(34dvh,260px)) auto minmax(1.2em,auto) auto;align-content:center}
+ html.fudool-android-shell body:has(.game-shell) .drive-board .drive-listen{align-self:start;min-height:46px}
+ html.fudool-android-shell body:has(.game-shell) .drive-board .drive-scene{min-height:160px!important;max-height:min(34dvh,260px)}
+ html.fudool-android-shell body:has(.game-shell) .drive-board .reward-world-banner,
+ html.fudool-android-shell body:has(.game-shell) .drive-board .drive-adult{display:none!important}
+ html.fudool-android-shell body:has(.game-shell) .drive-board .drive-route-meter{min-height:24px;padding:.15rem .55rem;gap:.4rem}
+}
+@media(max-width:900px) and (max-height:680px){
+ html.fudool-android-shell body:has(.game-shell) .game-board:not([hidden]){padding:2px!important;gap:2px!important}
+ html.fudool-android-shell body:has(.game-shell) .game-board[data-level-map] .game-path-choice{gap:.35rem!important;margin-block:.25rem!important}
+ html.fudool-android-shell body:has(.game-shell) .game-board[data-level-map] .game-path-choice>div:not(.game-path-controls){display:none!important}
+ html.fudool-android-shell body:has(.game-shell) .game-board[data-level-map] .reward-map-summary{display:none!important}
+ html.fudool-android-shell body:has(.game-shell) .planet-spot-wrap{grid-template-columns:repeat(2,minmax(0,1fr))!important;max-width:none!important;gap:.3rem!important}
+ html.fudool-android-shell body:has(.game-shell) .planet-spot-wrap h3{margin:0;font-size:.7rem}
+}

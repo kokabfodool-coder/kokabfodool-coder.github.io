@@ -24,8 +24,8 @@ function showSeries(id,slug){
  holder.append(node('h2','',tr('كل الحلقات','All episodes')+' · '+local.episodes.length));const grid=node('div','v5-detail-grid');local.episodes.forEach(ep=>{const item=button('','v5-episode',()=>openExternal(ep.video||ep.route));const art=node('span','v5-episode-art');const cover=image(ep.image);cover.alt=ep.title;art.append(cover,node('span','v5-play-circle','▶'));item.append(art,node('strong','',ep.title));grid.append(item)});holder.append(grid);
  }).catch(()=>{if(current===token)holder.replaceChildren(node('p','app-note',tr('تعذر تحميل المكتبة.','Could not load the library.')),button(tr('إعادة المحاولة','Retry'),'v5-series-open',()=>showSeries(id,slug)))})
 }
-function route(){const hash=location.hash||'#top';let view='home',match=hash.match(/^#v5-series-([a-z-]+)(?:\/([a-z0-9-]+))?$/);if(hash==='#v5-watch'||match&&config[match[1]])view='learn';else if(hash==='#v5-games')view='games';else if(hash==='#v5-achievements')view='achievements';else if(hash==='#v5-more')view='more';else if(hash==='#v5-pages')view='stories';
- views.forEach(v=>v.hidden=v.dataset.v5View!==view);const target={home:'#top',learn:'#v5-watch',games:'#v5-games',achievements:'#v5-achievements',more:'#v5-more',stories:'#v5-pages'}[view];nav.forEach(a=>{if(a.getAttribute('href')===target)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});if(view==='learn'&&match&&config[match[1]])showSeries(match[1],match[2]);else{token++;detail.hidden=true;series.hidden=false;latest.hidden=false}window.scrollTo(0,0)}
+function route(){const hash=location.hash||'#top';let view='home',match=hash.match(/^#v5-series-([a-z-]+)(?:\/([a-z0-9-]+))?$/);if(hash==='#v5-watch'||match&&config[match[1]])view='learn';else if(hash==='#v5-games')view='games';else if(hash==='#v5-achievements')view='achievements';else if(hash==='#v5-more')view='more';else if(hash==='#v5-worksheets')view='worksheets';else if(hash==='#v5-pages')view='stories';
+ views.forEach(v=>v.hidden=v.dataset.v5View!==view);const target={home:'#top',learn:'#v5-watch',games:'#v5-games',achievements:'#v5-achievements',more:'#v5-more',worksheets:'#v5-more',stories:'#v5-pages'}[view];nav.forEach(a=>{if(a.getAttribute('href')===target)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});if(view==='learn'&&match&&config[match[1]])showSeries(match[1],match[2]);else{token++;detail.hidden=true;series.hidden=false;latest.hidden=false}window.scrollTo(0,0)}
 // Native WebView can restore a deep scroll position after returning from a game.
 if(nativeApp && 'scrollRestoration' in history) history.scrollRestoration='manual';
 function resetGamesScroll(){
@@ -38,6 +38,22 @@ if(nativeApp){
  nav.filter(a=>a.getAttribute('href')==='#v5-games').forEach(a=>a.addEventListener('click',resetGamesScroll));
 }
 addEventListener('hashchange',route);route();
+// Worksheets are first-class in-app content. Whitelisted PDF links open the native reader directly.
+const worksheetRoot=document.querySelector('[data-worksheet-library]'),worksheetAge=document.querySelector('[data-worksheet-age]');
+if(worksheetRoot){
+ document.querySelectorAll('[data-v5-open-worksheets]').forEach(b=>b.addEventListener('click',()=>location.hash='#v5-worksheets'));
+ document.querySelectorAll('[data-worksheet-back]').forEach(b=>b.addEventListener('click',()=>location.hash='#v5-more'));
+ let worksheets=[];
+ const safePdf=/^\/print\/(?:worksheets\/(?:5-6|7-8|9-10)\/worksheet-\d{2}|(?:ar|en)\/(?:arabic-letter-sounds|arabic-letters|arabic-numbers|count-the-stars|english-abc-sheet|english-letters|english-numbers))\.pdf$/;
+ function renderWorksheets(){
+  const age=Number(worksheetAge.value)||0;worksheetRoot.replaceChildren();
+  const matches=worksheets.filter(w=>safePdf.test(ar?w.pdfAr:w.pdfEn)&&(!age||age>=w.ageMin&&age<=w.ageMax));
+  if(!matches.length){worksheetRoot.append(node('p','app-note',tr('لا توجد أوراق لهذا العمر حاليًا.','No worksheets for this age yet.')));return}
+  matches.forEach(w=>{const card=node('a','v5-worksheet-card');card.href=ar?w.pdfAr:w.pdfEn;card.setAttribute('aria-label',tr('افتح ورقة العمل: ','Open worksheet: ')+(ar?w.titleAr:w.titleEn));card.append(node('strong','',ar?w.titleAr:w.titleEn),node('span','',ar?w.skillAr:w.skillEn),node('small','',tr(`العمر ${w.ageMin}–${w.ageMax} · ${w.noteAr||''}`,`Ages ${w.ageMin}–${w.ageMax} · ${w.noteEn||''}`)));worksheetRoot.append(card)});
+ }
+ worksheetAge?.addEventListener('change',renderWorksheets);
+ fetch('/assets/worksheets.json',{cache:offline?'default':'no-cache'}).then(r=>{if(!r.ok)throw Error('worksheets');return r.json()}).then(data=>{worksheets=Array.isArray(data.worksheets)?data.worksheets:[];renderWorksheets()}).catch(()=>worksheetRoot.replaceChildren(node('p','app-note',tr('تعذر تحميل أوراق العمل. حاول مجددًا.','Could not load worksheets. Please retry.'))));
+}
 document.querySelectorAll('[data-v5-episode]').forEach(b=>b.addEventListener('click',()=>{
  const [group,slug]=b.dataset.v5Episode.split('/');
  catalog().then(data=>{const item=data.series.find(g=>g.id===group)?.[ar?'ar':'en'].episodes.find(e=>e.route.endsWith('/'+slug+'/'));if(item)openExternal(item.video||item.route);}).catch(()=>{location.hash='v5-series-'+b.dataset.v5Episode});
