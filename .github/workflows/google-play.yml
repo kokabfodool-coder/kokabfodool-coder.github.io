@@ -86,6 +86,7 @@ jobs:
           grep -F "$FUDOOL_CERT_SHA256" build/play/apk-signature.txt
           "$tools/zipalign" -c -P 16 -v 4 build/play/*.apk > build/play/alignment.txt
           "$tools/aapt" dump badging build/play/*.apk > build/play/apk-badging.txt
+          grep -Fx "sdkVersion:'24'" build/play/apk-badging.txt
           grep -F "targetSdkVersion:'36'" build/play/apk-badging.txt
           grep -F "name='com.kokabfodool.offline' versionCode='$CODE'" build/play/apk-badging.txt
           jarsigner -verify build/play/*.aab | tee build/play/aab-signature.txt
@@ -98,6 +99,7 @@ jobs:
             -o "$RUNNER_TEMP/bundletool.jar"
           java -jar "$RUNNER_TEMP/bundletool.jar" validate --bundle="build/play/Kawkab-Fudool-$VERSION.aab"
           java -jar "$RUNNER_TEMP/bundletool.jar" dump manifest --bundle="build/play/Kawkab-Fudool-$VERSION.aab" --module=base > build/play/aab-manifest.xml
+          grep -F 'android:minSdkVersion="24"' build/play/aab-manifest.xml
           grep -F 'android:targetSdkVersion="36"' build/play/aab-manifest.xml
           python3 scripts/verify-play-artifacts.py build/play
           (cd build/play && sha256sum *.apk *.aab > SHA256SUMS)
