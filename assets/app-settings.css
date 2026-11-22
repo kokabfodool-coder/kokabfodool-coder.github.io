@@ -23,3 +23,16 @@
 @media(max-width:450px){.settings-profile-link{margin-inline-start:0}.app-settings .app-top-actions{gap:.4rem}.app-settings .app-top{align-items:flex-start}}
 .settings-card [data-parent-backup]{border-block-start:1px solid #e5d9f4;margin-block-start:1.2rem;padding-block-start:.55rem}
 .settings-card [data-parent-tools] .settings-actions{margin-block-start:.65rem}
+
+.settings-intro { background: linear-gradient(135deg,#382170,#6842a5); color:white; padding:1.25rem; border-radius:22px; overflow:auto; }
+.settings-intro p { color:#f2eaff; margin-block-end:0; }
+.settings-avatar { float:inline-start; margin-inline-end:1rem; border-radius:18px; background:#ffffff25; object-fit:contain; }
+.settings-index { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.55rem; }
+.settings-index a,.settings-bottom a { display:grid; place-items:center; min-height:44px; padding:.35rem; color:#452581; font-weight:750; text-align:center; text-decoration:none; }
+.settings-index a { border:1px solid #dfd0f5; background:white; border-radius:14px; }
+.settings-card h2 { scroll-margin-block-start:1rem; }
+.settings-bottom { display:none; }
+.fudool-android-shell .settings-bottom { position:fixed; z-index:10; inset-inline:0; inset-block-end:0; display:flex; justify-content:space-evenly; background:#fff; border-block-start:1px solid #dfd0f5; }
+.settings-card .settings-check input { appearance:none; width:2.5rem; height:1.45rem; border:1px solid #79669a; border-radius:2rem; background:radial-gradient(circle at 27% 50%,white 0 5px,transparent 6px),#79669a; }
+.settings-card .settings-check input:checked { background:radial-gradient(circle at 73% 50%,white 0 5px,transparent 6px),#5e39a8; }
+.settings-card .settings-check input:focus-visible { outline:2px solid #382170; outline-offset:3px; }
