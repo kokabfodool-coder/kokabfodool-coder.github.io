@@ -162,7 +162,7 @@ public class MainActivity extends Activity {
         boolean youtube = "www.youtube.com".equals(h) || "youtube.com".equals(h)
                 || "m.youtube.com".equals(h) || "youtu.be".equals(h);
         boolean allowedHost = "kokabfodool.com".equals(h) || youtube
-                || "www.instagram.com".equals(h) || allowedTikTok;
+                || "www.instagram.com".equals(h) || "wa.me".equals(h) || allowedTikTok;
         if (!"https".equals(u.getScheme()) || u.getUserInfo() != null
                 || (u.getPort() != -1 && u.getPort() != 443) || !allowedHost) return;
         String current = web.getUrl();

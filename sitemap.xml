@@ -709,6 +709,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/grown-ups/practice/english-numbers/9/" />
   </url>
   <url>
+    <loc>https://kokabfodool.com/en/grown-ups/worksheets/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/grown-ups/worksheets/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/grown-ups/worksheets/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/grown-ups/worksheets/" />
+  </url>
+  <url>
     <loc>https://kokabfodool.com/en/learn/</loc>
     <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/learn/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/learn/" />
@@ -1033,6 +1039,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/series/mishal/uae-constitution/" />
   </url>
   <url>
+    <loc>https://kokabfodool.com/en/series/mishal/water-resources/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/series/mishal/water-resources/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/series/mishal/water-resources/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/series/mishal/water-resources/" />
+  </url>
+  <url>
     <loc>https://kokabfodool.com/en/series/robo/</loc>
     <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/series/robo/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/series/robo/" />
@@ -1121,6 +1133,12 @@
     <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/series/what-if/walking-on-clouds/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/series/what-if/walking-on-clouds/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/series/what-if/walking-on-clouds/" />
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/en/shorts/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/shorts/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/shorts/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/shorts/" />
   </url>
   <url>
     <loc>https://kokabfodool.com/en/terms/</loc>
@@ -1777,6 +1795,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/grown-ups/practice/english-numbers/9/" />
   </url>
   <url>
+    <loc>https://kokabfodool.com/grown-ups/worksheets/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/grown-ups/worksheets/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/grown-ups/worksheets/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/grown-ups/worksheets/" />
+  </url>
+  <url>
     <loc>https://kokabfodool.com/learn/</loc>
     <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/learn/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/learn/" />
@@ -2101,6 +2125,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/series/mishal/uae-constitution/" />
   </url>
   <url>
+    <loc>https://kokabfodool.com/series/mishal/water-resources/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/series/mishal/water-resources/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/series/mishal/water-resources/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/series/mishal/water-resources/" />
+  </url>
+  <url>
     <loc>https://kokabfodool.com/series/robo/</loc>
     <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/series/robo/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/series/robo/" />
@@ -2191,42 +2221,93 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/series/what-if/walking-on-clouds/" />
   </url>
   <url>
+    <loc>https://kokabfodool.com/shorts/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/shorts/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/shorts/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/shorts/" />
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/stories/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/stories/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/stories/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/stories/" />
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/stories/batboota-rain-drop/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/stories/batboota-rain-drop/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/stories/batboota-rain-drop/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/stories/batboota-rain-drop/" />
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/stories/clean-energy-city/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/stories/clean-energy-city/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/stories/clean-energy-city/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/stories/clean-energy-city/" />
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/stories/fox-friendship-lantern/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/stories/fox-friendship-lantern/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/stories/fox-friendship-lantern/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/stories/fox-friendship-lantern/" />
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/stories/fudool-garden-mystery/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/stories/fudool-garden-mystery/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/stories/fudool-garden-mystery/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/stories/fudool-garden-mystery/" />
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/stories/fudool-sealed-letter/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/stories/fudool-sealed-letter/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/stories/fudool-sealed-letter/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/stories/fudool-sealed-letter/" />
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/stories/layan-magic-clock/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/stories/layan-magic-clock/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/stories/layan-magic-clock/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/stories/layan-magic-clock/" />
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/stories/lumaa-colorful-breakfast/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/stories/lumaa-colorful-breakfast/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/stories/lumaa-colorful-breakfast/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/stories/lumaa-colorful-breakfast/" />
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/stories/mishaal-mysterious-news/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/stories/mishaal-mysterious-news/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/stories/mishaal-mysterious-news/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/stories/mishaal-mysterious-news/" />
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/stories/mishal-blue-balloon/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/stories/mishal-blue-balloon/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/stories/mishal-blue-balloon/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/stories/mishal-blue-balloon/" />
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/stories/robo-block-tower/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/stories/robo-block-tower/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/stories/robo-block-tower/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/stories/robo-block-tower/" />
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/stories/robo-little-seed/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/stories/robo-little-seed/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/stories/robo-little-seed/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/stories/robo-little-seed/" />
+  </url>
+  <url>
+    <loc>https://kokabfodool.com/stories/sunken-city-secrets/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/stories/sunken-city-secrets/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/stories/sunken-city-secrets/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/stories/sunken-city-secrets/" />
+  </url>
+  <url>
     <loc>https://kokabfodool.com/terms/</loc>
     <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/terms/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/terms/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/terms/" />
-  </url>
-<url><loc>https://kokabfodool.com/stories/</loc></url>
-<url><loc>https://kokabfodool.com/stories/robo-little-seed/</loc></url>
-<url><loc>https://kokabfodool.com/stories/mishal-blue-balloon/</loc></url>
-<url><loc>https://kokabfodool.com/stories/fudool-garden-mystery/</loc></url>
-<url><loc>https://kokabfodool.com/stories/clean-energy-city/</loc></url>
-<url><loc>https://kokabfodool.com/stories/lumaa-colorful-breakfast/</loc></url>
-<url><loc>https://kokabfodool.com/stories/robo-block-tower/</loc></url>
-<url><loc>https://kokabfodool.com/stories/fudool-sealed-letter/</loc></url>
-<url><loc>https://kokabfodool.com/stories/mishaal-mysterious-news/</loc></url>
-  <url>
-    <loc>https://kokabfodool.com/stories/batboota-rain-drop/</loc>
-  </url>
-  <url>
-    <loc>https://kokabfodool.com/stories/fox-friendship-lantern/</loc>
-  </url>
-  <url>
-    <loc>https://kokabfodool.com/stories/layan-magic-clock/</loc>
-  </url>
-  <url>
-    <loc>https://kokabfodool.com/stories/sunken-city-secrets/</loc>
-  </url>
-  <url>
-    <loc>https://kokabfodool.com/grown-ups/worksheets/</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/grown-ups/worksheets/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/grown-ups/worksheets/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/grown-ups/worksheets/" />
-  </url>
-  <url>
-    <loc>https://kokabfodool.com/en/grown-ups/worksheets/</loc>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://kokabfodool.com/grown-ups/worksheets/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://kokabfodool.com/en/grown-ups/worksheets/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://kokabfodool.com/grown-ups/worksheets/" />
   </url>
 </urlset>

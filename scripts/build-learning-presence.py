@@ -155,7 +155,7 @@ def make_page(lang, section, language_copy, links):
         '<link rel="icon" href="/assets/brand.webp" type="image/webp">',
         *font_preloads,
         '<link rel="stylesheet" href="/assets/site.css?v=14">',
-        '<script defer src="/assets/site.js?v=13"></script>',
+        '<script defer src="/assets/site.js?v=16"></script>',
         STYLE.rstrip(),
         '<link rel="canonical" href="' + SITE + route + '">',
     ]
@@ -474,8 +474,8 @@ def enrich_home(text, lang, episodes, ranked):
                         '<div class="episode-caption"><h3>' + escape(item['title']) + '</h3>'
                         '<span class="art-play" aria-hidden="true"><span class="play-icon"></span></span></div></a></article>')
         pattern = (r'(<section\b[^>]*id="' + label + r'-episodes"[^>]*>.*?'
-                   r'<div class="episode-grid[^"]*">)(.*?</article>)(</div>\s*(?:</div>\s*)?</section>)')
-        text, count = re.subn(pattern, lambda m: m[1] + ''.join(rows) + m[3], text, count=1, flags=re.S)
+                   r'<div class="episode-grid[^"]*">)(?:\s*<article class="episode-card">.*?</article>)*(</div>\s*(?:</div>\s*)?</section>)')
+        text, count = re.subn(pattern, lambda m: m[1] + ''.join(rows) + m[2], text, count=1, flags=re.S)
         assert count == 1, (lang, label)
     label = tr(lang, 'تعلّم حسب الموضوع', 'Learn by topic')
     section = '<section class="section wrap"><h2>' + label + '</h2>'
@@ -553,8 +553,8 @@ def build():
     for lang in BRAND:
         app = target(to_route(lang, 'play-app'))
         src = current_text(app.read_text())
-        src = re.sub(r'(/assets/site\.js\?v=)\d+', r'\g<1>13', src)
-        src = re.sub(r'(/assets/app-v5\.js\?v=)\d+', r'\g<1>9', src)
+        src = re.sub(r'(/assets/site\.js\?v=)\d+', r'\g<1>16', src)
+        src = re.sub(r'(/assets/app-v5\.js\?v=)\d+', r'\g<1>10', src)
         def reel(id):
             item = by_lang[lang][id]
             gallery_key = item['route'].strip('/').split('/')[-2:]
@@ -705,7 +705,7 @@ def build():
             page['mainEntity'] = [
                 {'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in answers
             ]
-        text = re.sub(r'(/assets/site\.js\?v=)\d+', r'\g<1>13', text)
+        text = re.sub(r'(/assets/site\.js\?v=)\d+', r'\g<1>16', text)
         text = replace_social(text, title, desc, thumb)
         text = LD.sub('', text)
         graph_tag = '<script type="application/ld+json">' + script_json({'@context': SCHEMA, '@graph': graph}) + '</script>\n'

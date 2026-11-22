@@ -104,6 +104,7 @@ for p in root.rglob('index.html'):
     p.write_text(s)
 # Pack includes the current canonical app/game pages, all local media and code required by the games.
 pages=['/','/en/','/games/','/en/games/','/app/','/en/app/','/play-app/','/en/play-app/','/app/family/','/en/app/family/','/app/settings/','/en/app/settings/','/app/credits/','/en/app/credits/','/offline/','/en/offline/','/grown-ups/','/en/grown-ups/','/grown-ups/worksheets/','/en/grown-ups/worksheets/','/episodes/','/en/episodes/','/privacy/','/en/privacy/','/terms/','/en/terms/','/faq/','/en/faq/']
+pages += ['/shorts/','/en/shorts/','/series/mishal/','/en/series/mishal/','/series/mishal/water-resources/','/en/series/mishal/water-resources/']
 for prefix in ['', 'en/']:
     pages += ['/'+p.parent.as_posix()+'/' for p in (root/(prefix+'games')).glob('*/index.html')]
 assert len([x for x in pages if re.match(r'^/(?:en/)?games/[^/]+/$',x)])==40

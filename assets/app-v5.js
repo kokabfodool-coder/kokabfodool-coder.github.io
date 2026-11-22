@@ -24,8 +24,8 @@ function showSeries(id,slug){
  holder.append(node('h2','',tr('كل الحلقات','All episodes')+' · '+local.episodes.length));const grid=node('div','v5-detail-grid');local.episodes.forEach(ep=>{const item=button('','v5-episode',()=>openExternal(ep.video||ep.route));const art=node('span','v5-episode-art');const cover=image(ep.image);cover.alt=ep.title;art.append(cover,node('span','v5-play-circle','▶'));item.append(art,node('strong','',ep.title));grid.append(item)});holder.append(grid);
  }).catch(()=>{if(current===token)holder.replaceChildren(node('p','app-note',tr('تعذر تحميل المكتبة.','Could not load the library.')),button(tr('إعادة المحاولة','Retry'),'v5-series-open',()=>showSeries(id,slug)))})
 }
-function route(){const hash=location.hash||'#top';let view='home',match=hash.match(/^#v5-series-([a-z-]+)(?:\/([a-z0-9-]+))?$/);if(hash==='#v5-watch'||match&&config[match[1]])view='learn';else if(hash==='#v5-games')view='games';else if(hash==='#v5-achievements')view='achievements';else if(hash==='#v5-more')view='more';else if(hash==='#v5-worksheets')view='worksheets';else if(hash==='#v5-pages')view='stories';
- views.forEach(v=>v.hidden=v.dataset.v5View!==view);const target={home:'#top',learn:'#v5-watch',games:'#v5-games',achievements:'#v5-achievements',more:'#v5-more',worksheets:'#v5-more',stories:'#v5-pages'}[view];nav.forEach(a=>{if(a.getAttribute('href')===target)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});if(view==='learn'&&match&&config[match[1]])showSeries(match[1],match[2]);else{token++;detail.hidden=true;series.hidden=false;latest.hidden=false}window.scrollTo(0,0)}
+function route(){const hash=location.hash||'#top';let view='home',match=hash.match(/^#v5-series-([a-z-]+)(?:\/([a-z0-9-]+))?$/);if(hash==='#v5-watch'||match&&config[match[1]])view='learn';else if(hash==='#v5-games')view='games';else if(hash==='#v5-achievements')view='achievements';else if(hash==='#v5-more')view='more';else if(hash==='#v5-worksheets')view='worksheets';else if(hash==='#v5-pages')view='stories';else if(hash==='#v5-pro')view='pro';
+ views.forEach(v=>v.hidden=v.dataset.v5View!==view);const target={home:'#top',learn:'#v5-watch',games:'#v5-games',achievements:'#v5-achievements',more:'#v5-more',worksheets:'#v5-more',stories:'#v5-pages',pro:'#v5-pro'}[view];nav.forEach(a=>{if(a.getAttribute('href')===target)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});if(view==='learn'&&match&&config[match[1]])showSeries(match[1],match[2]);else{token++;detail.hidden=true;series.hidden=false;latest.hidden=false}window.scrollTo(0,0)}
 // Native WebView can restore a deep scroll position after returning from a game.
 if(nativeApp && 'scrollRestoration' in history) history.scrollRestoration='manual';
 function resetGamesScroll(){
@@ -63,7 +63,7 @@ document.querySelectorAll('[data-v5-open-library]').forEach(b=>b.addEventListene
 function openExternal(value){
  let u;try{u=new URL(value,'https://kokabfodool.com')}catch{return}
  const tiktok = u.origin === 'https://www.tiktok.com' && u.pathname === '/@kokab_fodool';
- if((!tiktok && !['https://kokabfodool.com','https://www.youtube.com','https://youtube.com','https://m.youtube.com','https://youtu.be','https://www.instagram.com'].includes(u.origin))||u.username||u.password)return;
+ if((!tiktok && !['https://kokabfodool.com','https://www.youtube.com','https://youtube.com','https://m.youtube.com','https://youtu.be','https://www.instagram.com','https://wa.me'].includes(u.origin))||u.username||u.password)return;
  if(nativeApp)location.assign('/play-app/external/?url='+encodeURIComponent(u.href));else location.assign(u.href);
 }
 document.querySelectorAll('[data-v5-external]').forEach(b=>b.addEventListener('click',()=>openExternal(b.dataset.v5External)));

@@ -505,6 +505,18 @@
     </video:video>
   </url>
   <url>
+    <loc>https://kokabfodool.com/series/mishal/water-resources/</loc>
+    <video:video>
+      <video:thumbnail_loc>https://kokabfodool.com/assets/episode-water-resources.webp</video:thumbnail_loc>
+      <video:title>ماذا لو انقطعت المياه؟</video:title>
+      <video:description>اكتشف مع مشعال أهمية الماء، وكيف نحافظ عليه في حياتنا اليومية.</video:description>
+      <video:player_loc>https://www.youtube-nocookie.com/embed/5aRGITaRNe0</video:player_loc>
+      <video:duration>39</video:duration>
+      <video:publication_date>2026-11-15</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+  <url>
     <loc>https://kokabfodool.com/series/robo/ball-and-feather/</loc>
     <video:video>
       <video:thumbnail_loc>https://kokabfodool.com/assets/cover-ball-and-feather.webp</video:thumbnail_loc>

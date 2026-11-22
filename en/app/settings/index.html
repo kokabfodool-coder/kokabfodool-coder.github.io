@@ -11,11 +11,11 @@
 <link rel="icon" href="/assets/app-icon-192.png">
 <link rel="stylesheet" href="/assets/site.css?v=15">
 <link rel="stylesheet" href="/assets/app-experience.css?v=1">
-<link rel="stylesheet" href="/assets/app-settings.css?v=1">
+<link rel="stylesheet" href="/assets/app-settings.css?v=2">
 <link rel="stylesheet" href="/assets/learning-presence.css?v=1">
-<script type="module" src="/assets/app-settings.js?v=3"></script>
+<script type="module" src="/assets/app-settings.js?v=4"></script>
 <link rel="stylesheet" href="/assets/cinematic.css?v=1"/>
-</head>
+<link rel="stylesheet" href="/assets/app-accessibility.css?v=1"><script type="module" src="/assets/app-accessibility.js?v=1"></script></head>
 <body class="app-experience-body">
 <main class="app-experience app-settings" data-settings>
 <header class="app-top">
@@ -33,7 +33,7 @@
   </form>
   <p class="settings-alert" data-player-status role="status"></p>
 </section>
-<section class="settings-card" aria-labelledby="sound-settings-title">
+<section class="settings-card settings-preferences" aria-labelledby="display-preferences-title"><h2 id="display-preferences-title">Display and comfort</h2><p class="settings-note">These choices are saved on this device and applied across app pages.</p><label class="settings-check"><input type="checkbox" data-app-preference="large-text"><span><strong>Larger text</strong><small>Increase text size for easier reading.</small></span></label><label class="settings-check"><input type="checkbox" data-app-preference="reduce-motion"><span><strong>Reduce motion</strong><small>Reduce screen animations and transitions.</small></span></label><p class="settings-alert" data-preferences-status role="status"></p></section><section class="settings-card" aria-labelledby="sound-settings-title">
   <h2 id="sound-settings-title">Volume levels</h2>
   <label><span class="settings-range-title">Sound effects<output for="volume-effects" dir="ltr">100%</output></span><input id="volume-effects" data-volume="effects" type="range" min="0" max="100" step="5" value="100"></label>
   <label><span class="settings-range-title">Instructions and encouragement<output for="volume-voice" dir="ltr">100%</output></span><input id="volume-voice" data-volume="voice" type="range" min="0" max="100" step="5" value="100"></label>

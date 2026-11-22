@@ -358,6 +358,12 @@
       "ar": {
         "episodes": [
           {
+            "route": "/series/mishal/water-resources/",
+            "image": "/assets/episode-water-resources.webp",
+            "title": "ماذا لو انقطعت المياه؟",
+            "video": "https://www.youtube.com/watch?v=5aRGITaRNe0"
+          },
+          {
             "route": "/series/mishal/protect-our-environment/",
             "image": "/assets/episode-protect-our-environment.webp",
             "title": "كيف نحافظ على بيئتنا؟",
@@ -392,6 +398,12 @@
       },
       "en": {
         "episodes": [
+          {
+            "route": "/en/series/mishal/water-resources/",
+            "image": "/assets/episode-water-resources.webp",
+            "title": "What if the water ran out?",
+            "video": "https://www.youtube.com/watch?v=5aRGITaRNe0"
+          },
           {
             "route": "/en/series/mishal/protect-our-environment/",
             "image": "/assets/episode-protect-our-environment.webp",
