@@ -149,6 +149,31 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
     await page.goto(home,{waitUntil:'networkidle'});
     await page.locator('.v5-nav a[href="#v5-more"]').click();
    }
+   await page.goto(home + '#v5-pro');
+   await page.locator('.v5-pro-view .pro-cta').first().click();
+   await page.waitForURL('**/play-app/external/?url=*');
+   assert.equal(new URL(opened).origin + new URL(opened).pathname, 'https://wa.me/971505918238');
+
+   // A completed level must expose its stars and let a small Android viewport reach all actions.
+   await page.setViewportSize({width: 390, height: 660});
+   await page.goto(origin + prefix + '/games/vowel-drive/?path=3-5&level=1');
+   const rounds = await page.locator('#drive-data').evaluate(el => JSON.parse(el.textContent).levels[0].rounds);
+   const exitLinks = page.locator('.game-exit-links a');
+   await exitLinks.first().waitFor();
+   assert.deepEqual(await exitLinks.evaluateAll(links => links.map(link => link.getAttribute('href'))),
+    [prefix + '/play-app/', prefix + '/play-app/#v5-games']);
+   for (const round of rounds) {
+    await page.locator('.drive-gate[data-vowel="' + round.vowel + '"]').click();
+    await page.locator('[data-drive-next]').click();
+   }
+   const result = page.locator('[data-level-result]');
+   await result.waitFor();
+   assert.equal(await result.locator('.reward-earned-stars .earned').count(), 3);
+   assert.equal(await result.evaluate(el => getComputedStyle(el).overflowY), 'auto');
+   await result.locator('[data-level-replay]').scrollIntoViewIfNeeded();
+   assert(await result.locator('[data-level-replay]').evaluate(el => el.getBoundingClientRect().bottom <= innerHeight));
+   await exitLinks.last().click();
+   await page.waitForURL(home + '#v5-games');
    await page.close();console.log('PASS direct episode and social navigation',lang,mode);
   }
  }finally{if(browser)await browser.close();server.kill()}

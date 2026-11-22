@@ -15,8 +15,8 @@ android {
         applicationId 'kokab.fodool'
         minSdk 24
         targetSdk 36
-        versionCode 83
-        versionName '6.10.3'
+        versionCode 84
+        versionName '6.10.4'
     }
     flavorDimensions += 'distribution'
     productFlavors {

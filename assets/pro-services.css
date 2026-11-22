@@ -17,5 +17,3 @@
 .pro-sample-art { float:inline-start; width:clamp(64px,20%,112px); aspect-ratio:1; object-fit:cover; border-radius:14px; margin-inline-end:1rem; margin-block-end:.5rem; }
 .pro-sample { display:block; margin-block-end:.5rem; color:white; font-weight:800; }
 .pro-card { display:flow-root; }
-.fudool-android-shell .v5-pro-view .pro-cta,
-.fudool-android-shell .v5-pro-view .pro-note { display:none; }
