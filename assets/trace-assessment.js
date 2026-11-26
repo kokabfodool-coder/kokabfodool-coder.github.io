@@ -1,3 +1,4 @@
+import {paintSingleLineGuide} from './trace-guide-points.js?v=1';
 // Compare the drawing against the expected shape on this round.
 const width = 300;
 const height = 160;
@@ -139,81 +140,14 @@ export function evaluateTrace(guide, inkCanvas) {
 }
 
 
-/**
- * Turn thick, parallel rows of dots in legacy tracing artwork into one
- * centre-line. Work at assessment resolution so what children see and
- * what we grade are exactly the same shape.
- */
-function singleStrokeGuide(canvas) {
-  const w = width, h = height;
-  const source = maskOf(canvas);
-  const expanded = new Uint8Array(size);
-  const radius = 3;
-  for (let i = 0; i < size; i++) {
-    if (!source[i]) continue;
-    const x = i % w, y = (i / w) | 0;
-    for (let dy = -radius; dy <= radius; dy++) {
-      for (let dx = -radius; dx <= radius; dx++) {
-        if (dx * dx + dy * dy > radius * radius) continue;
-        const xx = x + dx, yy = y + dy;
-        if (xx >= 0 && xx < w && yy >= 0 && yy < h) expanded[yy * w + xx] = 1;
-      }
-    }
+export function drawGuide(image, canvas, word = false, imagePath = '') {
+  // All alphabet and number guides are precomputed from solid glyph centre-lines.
+  // Do NOT skeletonize or dilate the legacy dotted assets: this creates fake loops.
+  if (!word && paintSingleLineGuide(canvas, imagePath)) {
+    const mask = maskOf(canvas);
+    return {mask, word: false, parts: [], box: bounds(mask, width, height),
+      distance: distance(mask), total: mask.reduce((total, value) => total + value, 0)};
   }
-  const thin = expanded.slice();
-  const adjacent = (x, y) => [
-    thin[(y - 1) * w + x], thin[(y - 1) * w + x + 1],
-    thin[y * w + x + 1], thin[(y + 1) * w + x + 1],
-    thin[(y + 1) * w + x], thin[(y + 1) * w + x - 1],
-    thin[y * w + x - 1], thin[(y - 1) * w + x - 1],
-  ];
-  // Zhang-Suen thinning preserves curved strokes and their junctions.
-  for (let iteration = 0; iteration < 80; iteration++) {
-    let changed = false;
-    for (let pass = 0; pass < 2; pass++) {
-      const remove = [];
-      for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) {
-        const i = y * w + x;
-        if (!thin[i]) continue;
-        const p = adjacent(x, y);
-        const count = p.reduce((n, v) => n + v, 0);
-        if (count < 2 || count > 6) continue;
-        let transitions = 0;
-        for (let k = 0; k < 8; k++) if (!p[k] && p[(k + 1) % 8]) transitions++;
-        if (transitions !== 1) continue;
-        if (pass === 0 ? p[0] * p[2] * p[4] || p[2] * p[4] * p[6]
-          : p[0] * p[2] * p[6] || p[0] * p[4] * p[6]) continue;
-        remove.push(i);
-      }
-      for (const i of remove) thin[i] = 0;
-      if (remove.length) changed = true;
-    }
-    if (!changed) break;
-  }
-  const skeleton = [];
-  for (let i = 0; i < size; i++) if (thin[i]) skeleton.push(i);
-  if (skeleton.length < 3) return; // Never erase a guide if source is malformed.
-  const ctx = canvas.getContext('2d');
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = '#777087';
-  const taken = new Uint8Array(size);
-  // Uniform, non-overlapping dots centred on the single-pixel skeleton.
-  for (const i of skeleton) {
-    if (taken[i]) continue;
-    const x = i % w, y = (i / w) | 0;
-    ctx.beginPath();
-    ctx.arc((x + 0.5) * 2, (y + 0.5) * 2, 3.5, 0, Math.PI * 2);
-    ctx.fill();
-    for (let dy = -4; dy <= 4; dy++) for (let dx = -4; dx <= 4; dx++) {
-      const xx = x + dx, yy = y + dy;
-      if (dx * dx + dy * dy <= 16 && xx >= 0 && xx < w && yy >= 0 && yy < h) {
-        taken[yy * w + xx] = 1;
-      }
-    }
-  }
-}
-
-export function drawGuide(image, canvas, word = false) {
   const original = document.createElement('canvas');
   original.width = image.naturalWidth;
   original.height = image.naturalHeight;
@@ -229,7 +163,6 @@ export function drawGuide(image, canvas, word = false) {
   out.drawImage(image, source.x, source.y, source.w, source.h,
     (canvas.width - w) / 2, (canvas.height - h) / 2, w, h);
 
-  if (!word) singleStrokeGuide(canvas);
   const mask = maskOf(canvas);
   return {mask, word, parts: word ? components(mask) : [], box: bounds(mask, width, height),
     distance: distance(mask), total: mask.reduce((total, value) => total + value, 0)};
