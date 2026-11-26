@@ -2,7 +2,7 @@ import {vowelClipId} from './vowel-audio-review.js?v=2';
 import {playRecording, speak, stopSpeech, tones} from './game-voice.js?v=2';
 import {renderIceExperiment} from './ice-experiment.js?v=2';
 export {playRecording, speak, stopSpeech} from './game-voice.js?v=2';
-import {drawGuide,evaluateTrace} from './trace-assessment.js?v=4';
+import {drawGuide,evaluateTrace} from './trace-assessment.js?v=5';
 import {drawWritingReview, startingMarker} from './writing-review.js?v=1';
 import {createIllustration,illustrate} from './learning-art.js?v=2';
 import {shuffle} from './game-progress.js?v=16';
@@ -634,7 +634,7 @@ export function renderExtra(round,{cue,options,feedback,next,journey,makeOption}
     };
     image.onload = () => {
       try {
-        target = drawGuide(image, model, dictation);
+        target = drawGuide(image, model, dictation, round.image);
         metrics.textContent = instructions;
         if (!dictation) {
           marker = startingMarker(round.image, target.box, model);
